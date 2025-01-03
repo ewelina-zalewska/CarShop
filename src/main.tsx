@@ -1,9 +1,21 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { CarShop } from "@/components/CarShop";
+import { createRouter, RouterProvider } from "@tanstack/react-router";
+import { routeTree } from "./routeTree.gen";
+
+const router = createRouter({
+	routeTree,
+	defaultNotFoundComponent: () => <p>Page not found</p>,
+});
+
+declare module "@tanstack/react-router" {
+	interface Register {
+		router: typeof router;
+	}
+}
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
-		<CarShop />
+		<RouterProvider router={router} />
 	</StrictMode>,
 );
