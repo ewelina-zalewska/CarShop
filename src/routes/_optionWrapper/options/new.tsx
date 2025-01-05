@@ -1,13 +1,6 @@
-﻿import { createFileRoute } from "@tanstack/react-router";
-
-const Options = () => {
-	return (
-		<>
-			<h1>STWÓRZ NOWĄ OPCJĘ</h1>
-		</>
-	);
-};
+﻿import { NewCategory } from "@/components/options/NewCategory";
+import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_optionWrapper/options/new")({
-	component: Options,
+	component: NewCategory,
 });

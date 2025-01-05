@@ -1,21 +1,22 @@
 ﻿import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 
-const Options = () => {
+const TheOptions = () => {
 	return (
 		<>
 			<h1>ZARZĄDZAJ</h1>
-			<Outlet />
+
 			<ul>
 				<li>
-					<Link to="/options/list">DO LISTY OPCJI</Link>
+					<Link to="/options/category">DO LISTY KATEGORII</Link>
 				</li>
 				<li>
-					<Link to="/options/new">DO NOWEJ OPCJI</Link>
+					<Link to="/options/new">DO NOWEJ KATEGORII</Link>
 				</li>
 				<li>
 					<Link to="..">DO STRONY GŁOWNEJ</Link>
 				</li>
 			</ul>
+			<Outlet />
 		</>
 	);
 };
@@ -29,6 +30,6 @@ const OptionNotFound = () => {
 	);
 };
 export const Route = createFileRoute("/_optionWrapper/options")({
-	component: Options,
+	component: TheOptions,
 	notFoundComponent: OptionNotFound,
 });
