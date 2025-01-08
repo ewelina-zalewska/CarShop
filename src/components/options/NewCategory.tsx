@@ -1,10 +1,13 @@
 ﻿import { useCreateCategoryMutation } from "@/mutations/useCreateCategoryMutation";
+import { categoriesQueryOptions } from "@/queries/categoriesQuery";
 import { CategoryForm } from "@/types";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 // import { useNavigate } from "@tanstack/react-router";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 export const NewCategory = () => {
+	const { data } = useSuspenseQuery(categoriesQueryOptions);
 	const [formState, setFormState] = useState<CategoryForm>({
 		name: "",
 		identifier: "",
@@ -30,7 +33,7 @@ export const NewCategory = () => {
 		mutate({
 			name: formState.name,
 			identifier: formState.identifier,
-			position: 12,
+			position: data.length + 1,
 		});
 	};
 
