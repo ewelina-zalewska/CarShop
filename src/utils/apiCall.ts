@@ -1,5 +1,6 @@
 ﻿type ApiConfig<P = void> = {
-	method?: "GET" | "POST" | "DELETE";
+	id?: string;
+	method?: "GET" | "POST" | "DELETE" | "PATCH" | "PUT";
 	body?: P;
 };
 

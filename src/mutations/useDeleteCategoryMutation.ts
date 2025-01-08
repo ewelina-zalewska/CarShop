@@ -11,10 +11,15 @@ export const useDeleteCategoryMutation = () => {
 			apiCall<CategoryResponse>(`categories/${categoryId}`, {
 				method: "DELETE",
 			}),
-		onSuccess: () => {
-			queryClient.invalidateQueries({
-				queryKey: ["categories"],
-			});
+		onSuccess: (deletedCategory: CategoryResponse) => {
+			queryClient.setQueryData<CategoryResponse[]>(
+				["categories"],
+				(oldCategoryResponse) => {
+					return oldCategoryResponse?.filter(
+						(category) => category.id !== deletedCategory.id,
+					);
+				},
+			);
 		},
 	});
 };
