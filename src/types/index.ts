@@ -16,8 +16,8 @@ export type PartsResponse = {
 	id: string;
 	name: string;
 	price: number;
-	partid: string;
-	category: string;
+	partId: string;
+	categoryId: string;
 };
 
 export type CategoryOptions = CategoryResponse & {

@@ -14,8 +14,8 @@ export const useDeleteCategoryMutation = () => {
 		onSuccess: (deletedCategory: CategoryResponse) => {
 			queryClient.setQueryData<CategoryResponse[]>(
 				["categories"],
-				(oldCategoryResponse) => {
-					return oldCategoryResponse?.filter(
+				(oldCategory) => {
+					return oldCategory?.filter(
 						(category) => category.id !== deletedCategory.id,
 					);
 				},
