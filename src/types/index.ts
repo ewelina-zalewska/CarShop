@@ -1,4 +1,6 @@
-﻿export type CategoryForm = {
+﻿import { ChangeEvent } from "react";
+
+export type CategoryForm = {
 	name: string;
 	identifier: string;
 };
@@ -28,3 +30,5 @@ export type CategorySearch = {
 	page: number;
 	pageSize: number;
 };
+
+export type FormChangeEvent = ChangeEvent<HTMLInputElement | HTMLSelectElement>;

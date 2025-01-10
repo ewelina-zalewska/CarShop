@@ -1,11 +1,5 @@
 ﻿import React, { Suspense } from "react";
-import {
-	createRootRouteWithContext,
-	Link,
-	Outlet,
-} from "@tanstack/react-router";
-import { Route as CreateImport } from "@/routes/_formWrapper/create";
-import { Route as OptionsImport } from "@/routes/_optionWrapper/options";
+import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
 import { QueryClient } from "@tanstack/react-query";
 
 const TanStackRouterDevtools = import.meta.env.DEV
@@ -19,32 +13,17 @@ const TanStackRouterDevtools = import.meta.env.DEV
 
 const RootComponent = () => {
 	return (
-		<div>
-			<header>
-				<nav>
-					<h1>Projekt Car Shop – stwórz swoje wymarzone auto.</h1>
-					<ul>
-						<li>
-							<Link to={OptionsImport.fullPath}>ZARZĄDZAJ KREATOREM</Link>
-						</li>
-						<li>
-							<Link to={CreateImport.fullPath}>KREUJ AUTO</Link>
-						</li>
-					</ul>
-				</nav>
-				<Outlet />
-				<Suspense>
-					<TanStackRouterDevtools />
-				</Suspense>
-			</header>
-		</div>
+		<>
+			<Outlet />
+			<Suspense>
+				<TanStackRouterDevtools />
+			</Suspense>
+		</>
 	);
 };
 
-type RootContext = {
+export const Route = createRootRouteWithContext<{
 	queryClient: QueryClient;
-};
-
-export const Route = createRootRouteWithContext<RootContext>()({
+}>()({
 	component: RootComponent,
 });

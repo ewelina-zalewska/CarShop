@@ -1,5 +1,5 @@
 ﻿import { createLazyFileRoute } from "@tanstack/react-router";
-import { CategoryList } from "@/components/options/CategoryList";
+import { CategoryList } from "@/components/createForm/categories/CategoryList";
 
 const Loading = () => {
 	return (

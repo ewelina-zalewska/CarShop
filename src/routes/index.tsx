@@ -1,14 +1,6 @@
-﻿import { createFileRoute, Outlet } from "@tanstack/react-router";
-
-const Index = () => {
-	return (
-		<main>
-			<p>Wybierz jedną z opcji menu.</p>
-			<Outlet />
-		</main>
-	);
-};
+﻿import { createFileRoute } from "@tanstack/react-router";
+import { HomePage } from "@/components/HomePage";
 
 export const Route = createFileRoute("/")({
-	component: Index,
+	component: HomePage,
 });

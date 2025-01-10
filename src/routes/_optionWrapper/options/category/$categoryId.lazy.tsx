@@ -1,5 +1,5 @@
 ﻿import { createLazyFileRoute } from "@tanstack/react-router";
-import { SingleCategory } from "@/components/options/SingleCategory";
+import { SingleCategory } from "@/components/createForm/categories/SingleCategory";
 
 const Loading = () => {
 	return (

@@ -1,13 +1,6 @@
-﻿import { createFileRoute, Outlet } from "@tanstack/react-router";
-
-const Wrapper = () => {
-	return (
-		<main>
-			<Outlet />
-		</main>
-	);
-};
+﻿import { createFileRoute } from "@tanstack/react-router";
+import { CreateFormCollapsibleAccordion } from "@/Shared/CreateFormCollapsibleAccordion";
 
 export const Route = createFileRoute("/_optionWrapper")({
-	component: Wrapper,
+	component: CreateFormCollapsibleAccordion,
 });
