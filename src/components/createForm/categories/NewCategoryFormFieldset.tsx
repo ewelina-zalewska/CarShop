@@ -1,31 +1,36 @@
-﻿import { CategoryForm, FormChangeEvent } from "@/types";
-
-type NewCategoryFormFieldset = {
-	onChange: (e: FormChangeEvent) => void;
-	formState: CategoryForm;
-};
+﻿import { NewCategoryFormFieldsetProps } from "@/types";
+import { FieldErrors } from "@/Shared/FieldErrors";
 
 export const NewCategoryFormFieldset = ({
 	onChange,
 	formState,
-}: NewCategoryFormFieldset) => {
+	errors,
+}: NewCategoryFormFieldsetProps) => {
 	const { name, identifier } = formState;
 	return (
 		<>
-			<input
-				type="text"
-				name="name"
-				placeholder="nazwa kategorii"
-				value={name}
-				onChange={onChange}
-			/>
-			<input
-				type="text"
-				name="identifier"
-				placeholder="identyfikator kategorii"
-				value={identifier}
-				onChange={onChange}
-			/>
+			<div>
+				<legend>Nazwa</legend>
+				<input
+					type="text"
+					name="name"
+					placeholder="nazwa kategorii"
+					value={name}
+					onChange={onChange}
+				/>
+				<FieldErrors errors={errors.name} />
+			</div>
+			<div>
+				<legend>Identyfikator</legend>
+				<input
+					type="text"
+					name="identifier"
+					placeholder="identyfikator kategorii"
+					value={identifier}
+					onChange={onChange}
+				/>
+				<FieldErrors errors={errors.identifier} />
+			</div>
 		</>
 	);
 };

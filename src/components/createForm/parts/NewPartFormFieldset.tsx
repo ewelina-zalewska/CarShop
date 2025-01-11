@@ -1,14 +1,11 @@
-﻿import { PartForm, FormChangeEvent } from "@/types";
-
-type NewPartFormFieldset = {
-	onChange: (e: FormChangeEvent) => void;
-	formState: PartForm;
-};
+﻿import { NewPartFormFieldsetProps } from "@/types";
+import { FieldErrors } from "@/Shared/FieldErrors";
 
 export const NewPartFormFieldset = ({
 	onChange,
 	formState,
-}: NewPartFormFieldset) => {
+	errors,
+}: NewPartFormFieldsetProps) => {
 	const { name, price, partId } = formState;
 	return (
 		<>
@@ -21,6 +18,7 @@ export const NewPartFormFieldset = ({
 					value={name}
 					onChange={onChange}
 				/>
+				<FieldErrors errors={errors.name} />
 			</div>
 			<div>
 				<legend>Identyfikator</legend>
@@ -31,6 +29,7 @@ export const NewPartFormFieldset = ({
 					value={partId}
 					onChange={onChange}
 				/>
+				<FieldErrors errors={errors.partId} />
 			</div>
 			<div>
 				<legend>Cena</legend>
@@ -41,6 +40,7 @@ export const NewPartFormFieldset = ({
 					value={price}
 					onChange={onChange}
 				/>
+				<FieldErrors errors={errors.price} />
 			</div>
 		</>
 	);
