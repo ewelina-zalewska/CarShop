@@ -1,7 +1,7 @@
 ﻿import { useState } from "react";
 import { PartsResponse } from "@/types";
 import { useDeletePartMutation } from "@/mutations/useDeletePartMutation";
-import { DeletePartConfirmation } from "@/components/createForm/parts/DeletePartConfirmation";
+import { DeletePart } from "@/components/createForm/parts/DeletePart";
 import { TheButton } from "@/Shared/TheButton";
 
 type optionProps = {
@@ -28,10 +28,7 @@ export const SinglePart = ({ option }: optionProps) => {
 				/>
 			</li>
 			{deleted === "delete" && (
-				<DeletePartConfirmation
-					onCancel={TOGGLE_DELETE_MODE}
-					deletedPart={option}
-				/>
+				<DeletePart onCancel={TOGGLE_DELETE_MODE} deletedPart={option} />
 			)}
 			{error && <p>{error.message}</p>}
 		</>

@@ -1,7 +1,6 @@
 ﻿import { useEffect } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { useNavigate } from "@tanstack/react-router";
-import { CategoryResponse } from "@/types";
+import { getRouteApi, Link, useNavigate } from "@tanstack/react-router";
 import { categoriesQueryOptions } from "@/queries/categoriesQuery";
 import { partsQueryOptions } from "@/queries/partsQuery";
 import { useDeleteCategoryMutation } from "@/mutations/useDeleteCategoryMutation";
@@ -9,15 +8,12 @@ import { useDeleteMultiplePartsMutation } from "@/mutations/useDeleteMultiplePar
 import { useUpdateMultipleCategoriesMutation } from "@/mutations/useUpdateMultipleCategoriesMutation";
 import { TheButton } from "@/Shared/TheButton";
 
-type DeleteCategoryConfirmationProps = {
-	onCancel: () => void;
-	deletedCategory: CategoryResponse;
-};
+const categoryRoute = getRouteApi(
+	"/_optionWrapper/options/category/$categoryId",
+);
 
-export const DeleteCategoryConfirmation = ({
-	onCancel,
-	deletedCategory,
-}: DeleteCategoryConfirmationProps) => {
+export const DeleteCategory = () => {
+	const { categoryId } = categoryRoute.useParams();
 	const { data: categories } = useSuspenseQuery(categoriesQueryOptions);
 	const { data: parts } = useSuspenseQuery(partsQueryOptions);
 
@@ -32,18 +28,22 @@ export const DeleteCategoryConfirmation = ({
 		useUpdateMultipleCategoriesMutation();
 
 	const HANDLE_DELETE = () => {
-		DELETE_CATEGORY(deletedCategory.id);
+		DELETE_CATEGORY(categoryId);
 
 		const partsToDelete = parts?.filter(
-			(part) => part.categoryId === deletedCategory.id,
+			(part) => part.categoryId === categoryId,
 		);
 		DELETE_PARTS(partsToDelete);
 
 		const categoriesIds = categories?.filter(
-			(category) => category.id !== deletedCategory.id,
+			(category) => category.id !== categoryId,
 		);
 		UPDATE_CATEGORY_POSITION(categoriesIds);
 	};
+
+	const categoryName = categories
+		?.filter((category) => category.id === categoryId)
+		.map((category) => category.name);
 
 	const navigate = useNavigate();
 	useEffect(() => {
@@ -55,11 +55,12 @@ export const DeleteCategoryConfirmation = ({
 	return (
 		<div>
 			<p>
-				Do you really want to delete category{" "}
-				<strong>{deletedCategory.name}</strong>?
+				Do you really want to delete category <strong>{categoryName}</strong>?
 			</p>
 			<TheButton btnLabel="DELETE" onClick={HANDLE_DELETE} />
-			<TheButton btnLabel="CANCEL" onClick={onCancel} />
+			<Link to="/options/category/$categoryId" params={{ categoryId }}>
+				POWRÓT
+			</Link>
 			{error && <p>{error.message}</p>}
 		</div>
 	);

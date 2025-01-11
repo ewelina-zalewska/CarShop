@@ -22,7 +22,6 @@ export const CategoryList = () => {
 					</li>
 				))}
 			</ul>
-			<Outlet />
 		</>
 	);
 };
