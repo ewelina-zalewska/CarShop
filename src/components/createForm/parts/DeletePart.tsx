@@ -7,7 +7,7 @@ type DeletePartConfirmationProps = {
 	deletedPart: PartsResponse;
 };
 
-export const DeletePartConfirmation = ({
+export const DeletePart = ({
 	onCancel,
 	deletedPart,
 }: DeletePartConfirmationProps) => {
