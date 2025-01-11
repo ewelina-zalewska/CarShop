@@ -4,6 +4,11 @@ export type CategoryForm = {
 	name: string;
 	identifier: string;
 };
+export type PartForm = {
+	name: string;
+	price: number;
+	partId: string;
+};
 
 export type CategoryResponse = {
 	id: string;
@@ -12,8 +17,6 @@ export type CategoryResponse = {
 	position: number;
 };
 
-export type CategoryDto = Omit<CategoryResponse, "id">;
-
 export type PartsResponse = {
 	id: string;
 	name: string;
@@ -21,6 +24,9 @@ export type PartsResponse = {
 	partId: string;
 	categoryId: string;
 };
+export type CategoryDto = Omit<CategoryResponse, "id">;
+
+export type PartDto = Omit<PartsResponse, "id">;
 
 export type CategoryOptions = CategoryResponse & {
 	parts: PartsResponse[];
