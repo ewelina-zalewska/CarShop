@@ -1,20 +1,16 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
+import tailwindcss from "tailwindcss";
 import path from "path";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
 	plugins: [TanStackRouterVite({}), react()],
-	build: {
-		outDir: "build",
-	},
 	css: {
 		devSourcemap: true,
-		preprocessorOptions: {
-			scss: {
-				api: "modern-compiler",
-			},
+		postcss: {
+			plugins: [tailwindcss()],
 		},
 	},
 	resolve: {
