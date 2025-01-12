@@ -1,6 +1,6 @@
 ﻿import { Outlet } from "@tanstack/react-router";
 
-export const FormCollapsibleAccordion = () => {
+export const FormMain = () => {
 	return (
 		<main>
 			<Outlet />

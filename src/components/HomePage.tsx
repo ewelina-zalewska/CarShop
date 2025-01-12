@@ -1,4 +1,4 @@
-﻿import { Route as CreateImport } from "@/routes/_formWrapper/create";
+﻿import { Route as CreateImport } from "@/routes/_formWrapper/creator";
 import { Route as OptionsImport } from "@/routes/_optionWrapper/options";
 import { Link, Outlet } from "@tanstack/react-router";
 import { OptionsSelectDiv } from "@/Shared/OptionsSelectDiv";

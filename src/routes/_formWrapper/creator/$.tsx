@@ -9,6 +9,6 @@ const WrongOptionsPlace = () => {
 	);
 };
 
-export const Route = createFileRoute("/_formWrapper/create/$")({
+export const Route = createFileRoute("/_formWrapper/creator/$")({
 	component: WrongOptionsPlace,
 });

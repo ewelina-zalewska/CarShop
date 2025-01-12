@@ -1,6 +1,6 @@
 ﻿import { createFileRoute } from "@tanstack/react-router";
-import { FormCollapsibleAccordion } from "@/Shared/FormCollapsibleAccordion";
+import { FormMain } from "@/components/form/FormMain";
 
 export const Route = createFileRoute("/_formWrapper")({
-	component: FormCollapsibleAccordion,
+	component: FormMain,
 });
