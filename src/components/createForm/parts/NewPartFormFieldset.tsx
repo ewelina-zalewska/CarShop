@@ -1,4 +1,5 @@
 ﻿import { NewPartFormFieldsetProps } from "@/types";
+import { TheInput } from "@/Shared/TheInput";
 import { FieldErrors } from "@/Shared/FieldErrors";
 
 export const NewPartFormFieldset = ({
@@ -9,39 +10,34 @@ export const NewPartFormFieldset = ({
 	const { name, price, partId } = formState;
 	return (
 		<>
-			<div>
-				<legend>Nazwa</legend>
-				<input
-					type="text"
-					name="name"
-					placeholder="nazwa opcji"
-					value={name}
-					onChange={onChange}
-				/>
-				<FieldErrors errors={errors.name} />
-			</div>
-			<div>
-				<legend>Identyfikator</legend>
-				<input
-					type="text"
-					name="partId"
-					placeholder="identyfikator opcji"
-					value={partId}
-					onChange={onChange}
-				/>
-				<FieldErrors errors={errors.partId} />
-			</div>
-			<div>
-				<legend>Cena</legend>
-				<input
-					type="number"
-					name="price"
-					placeholder="cena"
-					value={price}
-					onChange={onChange}
-				/>
-				<FieldErrors errors={errors.price} />
-			</div>
+			<TheInput
+				legend="Nazwa"
+				type="text"
+				name="name"
+				placeholder="nazwa opcji"
+				value={name}
+				onChange={onChange}
+			/>
+			<FieldErrors errors={errors.name} />
+			<TheInput
+				legend="dentyfikator"
+				type="text"
+				name="partId"
+				placeholder="identyfikator opcji"
+				value={partId}
+				onChange={onChange}
+			/>
+			<FieldErrors errors={errors.partId} />
+
+			<TheInput
+				legend="Cena"
+				type="number"
+				name="price"
+				placeholder="cena"
+				value={price}
+				onChange={onChange}
+			/>
+			<FieldErrors errors={errors.price} />
 		</>
 	);
 };
