@@ -1,15 +1,14 @@
 ﻿import { FormEvent, useEffect } from "react";
 import { useShallow } from "zustand/shallow";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { Link } from "@tanstack/react-router";
 import { categoriesQueryOptions } from "@/queries/categoriesQuery";
 import { categoryQueryOptions } from "@/queries/categoryQuery";
 import { useFormStore } from "@/store/useFormStore";
 import { useCreatorCategoryId } from "@/hooks/useCreatorCategoryId";
 import { useInput } from "@/hooks/useInput";
-import { useNextCategory } from "@/hooks/useNextCategory";
-import { usePreviousCategory } from "@/hooks/usePreviousCategory";
 import { TheStepper } from "@/components/form/TheStepper";
+import { FormCategoryPreviousCategory } from "@/components/form/FormCategoryPreviousCategory";
+import { FormCategoryNextCategory } from "@/components/form/FormCategoryNextCategory";
 import { TheButton } from "@/Shared/TheButton";
 import { TheRadio } from "@/Shared/TheRadio";
 
@@ -18,16 +17,6 @@ export const FormCategory = () => {
 
 	const { data: categories } = useSuspenseQuery(categoriesQueryOptions);
 	const { data: category } = useSuspenseQuery(categoryQueryOptions(categoryId));
-	const { nextCategory } = useNextCategory({
-		category,
-		categories,
-		categoryId,
-	});
-	const { previousCategory } = usePreviousCategory({
-		category,
-		categories,
-		categoryId,
-	});
 
 	const { form, setFormData } = useFormStore(
 		useShallow((state) => ({
@@ -74,19 +63,13 @@ export const FormCategory = () => {
 						/>
 					))}
 				</fieldset>
+				<FormCategoryPreviousCategory
+					category={category}
+					categories={categories}
+					categoryId={categoryId}
+				/>
 
-				{category.position !== 1 && (
-					<Link
-						to="/creator/$categoryId"
-						params={{
-							categoryId: previousCategory,
-						}}
-					>
-						COFNIJ
-					</Link>
-				)}
-
-				{category.position === categories.length ? (
+				{category.position === categories.length && (
 					<>
 						{categories.length !== localStorage.length && (
 							<p>Proszę zaznaczyć jedną z opcji z każdej kategorii</p>
@@ -98,11 +81,13 @@ export const FormCategory = () => {
 							disabled={categories.length !== localStorage.length}
 						/>
 					</>
-				) : (
-					<Link to="/creator/$categoryId" params={{ categoryId: nextCategory }}>
-						DALEJ
-					</Link>
 				)}
+
+				<FormCategoryNextCategory
+					category={category}
+					categories={categories}
+					categoryId={categoryId}
+				/>
 			</form>
 		</>
 	);

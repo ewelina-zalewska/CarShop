@@ -1,7 +1,8 @@
-﻿import { useEffect, useState } from "react";
+﻿import { Link } from "@tanstack/react-router";
 import { CategoryResponse, useChangeCategoryProps } from "@/types";
+import { useEffect, useState } from "react";
 
-export const usePreviousCategory = ({
+export const FormCategoryPreviousCategory = ({
 	category,
 	categories,
 	categoryId,
@@ -16,7 +17,18 @@ export const usePreviousCategory = ({
 		setPreviousCategory(previous);
 	}, [categoryId]);
 
-	return {
-		previousCategory: previousCategory ? previousCategory.id : categoryId,
-	};
+	return (
+		<>
+			{category.position !== 1 && (
+				<Link
+					to="/creator/$categoryId"
+					params={{
+						categoryId: previousCategory ? previousCategory.id : categoryId,
+					}}
+				>
+					COFNIJ
+				</Link>
+			)}
+		</>
+	);
 };
