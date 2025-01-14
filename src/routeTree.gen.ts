@@ -25,7 +25,7 @@ import { Route as OptionWrapperOptionsSplatImport } from "./routes/_optionWrappe
 import { Route as FormWrapperCreatorSummaryImport } from "./routes/_formWrapper/creator/summary";
 import { Route as FormWrapperCreatorSuccessImport } from "./routes/_formWrapper/creator/success";
 import { Route as FormWrapperCreatorShippingImport } from "./routes/_formWrapper/creator/shipping";
-import { Route as FormWrapperCreatorFormImport } from "./routes/_formWrapper/creator/form";
+import { Route as FormWrapperCreatorCategoryIdImport } from "./routes/_formWrapper/creator/$categoryId";
 import { Route as FormWrapperCreatorSplatImport } from "./routes/_formWrapper/creator/$";
 import { Route as OptionWrapperOptionsCategoryCategoryIdImport } from "./routes/_optionWrapper/options/category/$categoryId";
 import { Route as OptionWrapperOptionsCategoryCategoryIdNewPartImport } from "./routes/_optionWrapper/options/category/$categoryId.newPart";
@@ -122,11 +122,16 @@ const FormWrapperCreatorShippingRoute = FormWrapperCreatorShippingImport.update(
 	} as any,
 );
 
-const FormWrapperCreatorFormRoute = FormWrapperCreatorFormImport.update({
-	id: "/form",
-	path: "/form",
-	getParentRoute: () => FormWrapperCreatorRoute,
-} as any);
+const FormWrapperCreatorCategoryIdRoute =
+	FormWrapperCreatorCategoryIdImport.update({
+		id: "/$categoryId",
+		path: "/$categoryId",
+		getParentRoute: () => FormWrapperCreatorRoute,
+	} as any).lazy(() =>
+		import("./routes/_formWrapper/creator/$categoryId.lazy").then(
+			(d) => d.Route,
+		),
+	);
 
 const FormWrapperCreatorSplatRoute = FormWrapperCreatorSplatImport.update({
 	id: "/$",
@@ -212,11 +217,11 @@ declare module "@tanstack/react-router" {
 			preLoaderRoute: typeof FormWrapperCreatorSplatImport;
 			parentRoute: typeof FormWrapperCreatorImport;
 		};
-		"/_formWrapper/creator/form": {
-			id: "/_formWrapper/creator/form";
-			path: "/form";
-			fullPath: "/creator/form";
-			preLoaderRoute: typeof FormWrapperCreatorFormImport;
+		"/_formWrapper/creator/$categoryId": {
+			id: "/_formWrapper/creator/$categoryId";
+			path: "/$categoryId";
+			fullPath: "/creator/$categoryId";
+			preLoaderRoute: typeof FormWrapperCreatorCategoryIdImport;
 			parentRoute: typeof FormWrapperCreatorImport;
 		};
 		"/_formWrapper/creator/shipping": {
@@ -303,7 +308,7 @@ declare module "@tanstack/react-router" {
 
 interface FormWrapperCreatorRouteChildren {
 	FormWrapperCreatorSplatRoute: typeof FormWrapperCreatorSplatRoute;
-	FormWrapperCreatorFormRoute: typeof FormWrapperCreatorFormRoute;
+	FormWrapperCreatorCategoryIdRoute: typeof FormWrapperCreatorCategoryIdRoute;
 	FormWrapperCreatorShippingRoute: typeof FormWrapperCreatorShippingRoute;
 	FormWrapperCreatorSuccessRoute: typeof FormWrapperCreatorSuccessRoute;
 	FormWrapperCreatorSummaryRoute: typeof FormWrapperCreatorSummaryRoute;
@@ -312,7 +317,7 @@ interface FormWrapperCreatorRouteChildren {
 
 const FormWrapperCreatorRouteChildren: FormWrapperCreatorRouteChildren = {
 	FormWrapperCreatorSplatRoute: FormWrapperCreatorSplatRoute,
-	FormWrapperCreatorFormRoute: FormWrapperCreatorFormRoute,
+	FormWrapperCreatorCategoryIdRoute: FormWrapperCreatorCategoryIdRoute,
 	FormWrapperCreatorShippingRoute: FormWrapperCreatorShippingRoute,
 	FormWrapperCreatorSuccessRoute: FormWrapperCreatorSuccessRoute,
 	FormWrapperCreatorSummaryRoute: FormWrapperCreatorSummaryRoute,
@@ -404,7 +409,7 @@ export interface FileRoutesByFullPath {
 	"/creator": typeof FormWrapperCreatorRouteWithChildren;
 	"/options": typeof OptionWrapperOptionsRouteWithChildren;
 	"/creator/$": typeof FormWrapperCreatorSplatRoute;
-	"/creator/form": typeof FormWrapperCreatorFormRoute;
+	"/creator/$categoryId": typeof FormWrapperCreatorCategoryIdRoute;
 	"/creator/shipping": typeof FormWrapperCreatorShippingRoute;
 	"/creator/success": typeof FormWrapperCreatorSuccessRoute;
 	"/creator/summary": typeof FormWrapperCreatorSummaryRoute;
@@ -423,7 +428,7 @@ export interface FileRoutesByTo {
 	"/$": typeof SplatRoute;
 	"": typeof OptionWrapperRouteWithChildren;
 	"/creator/$": typeof FormWrapperCreatorSplatRoute;
-	"/creator/form": typeof FormWrapperCreatorFormRoute;
+	"/creator/$categoryId": typeof FormWrapperCreatorCategoryIdRoute;
 	"/creator/shipping": typeof FormWrapperCreatorShippingRoute;
 	"/creator/success": typeof FormWrapperCreatorSuccessRoute;
 	"/creator/summary": typeof FormWrapperCreatorSummaryRoute;
@@ -446,7 +451,7 @@ export interface FileRoutesById {
 	"/_formWrapper/creator": typeof FormWrapperCreatorRouteWithChildren;
 	"/_optionWrapper/options": typeof OptionWrapperOptionsRouteWithChildren;
 	"/_formWrapper/creator/$": typeof FormWrapperCreatorSplatRoute;
-	"/_formWrapper/creator/form": typeof FormWrapperCreatorFormRoute;
+	"/_formWrapper/creator/$categoryId": typeof FormWrapperCreatorCategoryIdRoute;
 	"/_formWrapper/creator/shipping": typeof FormWrapperCreatorShippingRoute;
 	"/_formWrapper/creator/success": typeof FormWrapperCreatorSuccessRoute;
 	"/_formWrapper/creator/summary": typeof FormWrapperCreatorSummaryRoute;
@@ -469,7 +474,7 @@ export interface FileRouteTypes {
 		| "/creator"
 		| "/options"
 		| "/creator/$"
-		| "/creator/form"
+		| "/creator/$categoryId"
 		| "/creator/shipping"
 		| "/creator/success"
 		| "/creator/summary"
@@ -487,7 +492,7 @@ export interface FileRouteTypes {
 		| "/$"
 		| ""
 		| "/creator/$"
-		| "/creator/form"
+		| "/creator/$categoryId"
 		| "/creator/shipping"
 		| "/creator/success"
 		| "/creator/summary"
@@ -508,7 +513,7 @@ export interface FileRouteTypes {
 		| "/_formWrapper/creator"
 		| "/_optionWrapper/options"
 		| "/_formWrapper/creator/$"
-		| "/_formWrapper/creator/form"
+		| "/_formWrapper/creator/$categoryId"
 		| "/_formWrapper/creator/shipping"
 		| "/_formWrapper/creator/success"
 		| "/_formWrapper/creator/summary"
@@ -576,7 +581,7 @@ export const routeTree = rootRoute
       "parent": "/_formWrapper",
       "children": [
         "/_formWrapper/creator/$",
-        "/_formWrapper/creator/form",
+        "/_formWrapper/creator/$categoryId",
         "/_formWrapper/creator/shipping",
         "/_formWrapper/creator/success",
         "/_formWrapper/creator/summary",
@@ -597,8 +602,8 @@ export const routeTree = rootRoute
       "filePath": "_formWrapper/creator/$.tsx",
       "parent": "/_formWrapper/creator"
     },
-    "/_formWrapper/creator/form": {
-      "filePath": "_formWrapper/creator/form.tsx",
+    "/_formWrapper/creator/$categoryId": {
+      "filePath": "_formWrapper/creator/$categoryId.tsx",
       "parent": "/_formWrapper/creator"
     },
     "/_formWrapper/creator/shipping": {

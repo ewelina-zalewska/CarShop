@@ -65,3 +65,9 @@ export type FormChangeEvent = ChangeEvent<HTMLInputElement | HTMLSelectElement>;
 export type FieldErrorsProps = {
 	errors: string[];
 };
+
+export type useChangeCategoryProps = {
+	category: CategoryResponse;
+	categories: CategoryResponse[];
+	categoryId: string;
+};
