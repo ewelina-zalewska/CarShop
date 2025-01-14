@@ -1,19 +1,16 @@
 ﻿import { FormEvent, useEffect, useRef, useState } from "react";
-import { getRouteApi, useNavigate } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 import { PartForm, PartFormErrors } from "@/types";
 import { useSuccess } from "@/hooks/useSuccess";
+import { useOptionsCategoryId } from "@/hooks/useOprionsCategoryId";
 import { useForm } from "@/hooks/useForm";
 import { useCreatePartMutation } from "@/mutations/useCreatePartMutation";
 import { NewPartFormFieldset } from "@/components/createForm/parts/NewPartFormFieldset";
 import { TheButton } from "@/Shared/TheButton";
 import { validatePart as VALIDATE_PART } from "@/utils/validatePart";
 
-const categoryRoute = getRouteApi(
-	"/_optionWrapper/options/category/$categoryId",
-);
-
 export const NewPart = () => {
-	const { categoryId } = categoryRoute.useParams();
+	const categoryId = useOptionsCategoryId();
 
 	const formRef = useRef<HTMLFormElement>(null);
 	const { success, setSuccess } = useSuccess();

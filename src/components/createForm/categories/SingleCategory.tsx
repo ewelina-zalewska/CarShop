@@ -1,15 +1,12 @@
 ﻿import { useSuspenseQuery } from "@tanstack/react-query";
-import { getRouteApi, Link, Outlet } from "@tanstack/react-router";
+import { Link, Outlet } from "@tanstack/react-router";
 import { categoryQueryOptions } from "@/queries/categoryQuery";
+import { useOptionsCategoryId } from "@/hooks/useOprionsCategoryId";
 import { useDeleteCategoryMutation } from "@/mutations/useDeleteCategoryMutation";
 import { SinglePart } from "@/components/createForm/parts/SinglePart";
 
-const categoryRoute = getRouteApi(
-	"/_optionWrapper/options/category/$categoryId",
-);
-
 export const SingleCategory = () => {
-	const { categoryId } = categoryRoute.useParams();
+	const categoryId = useOptionsCategoryId();
 	const { data } = useSuspenseQuery(categoryQueryOptions(categoryId));
 	const { error, isPending } = useDeleteCategoryMutation();
 

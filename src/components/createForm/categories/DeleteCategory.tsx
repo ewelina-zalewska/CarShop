@@ -1,19 +1,16 @@
 ﻿import { useEffect } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { getRouteApi, Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { categoriesQueryOptions } from "@/queries/categoriesQuery";
 import { partsQueryOptions } from "@/queries/partsQuery";
+import { useOptionsCategoryId } from "@/hooks/useOprionsCategoryId";
 import { useDeleteCategoryMutation } from "@/mutations/useDeleteCategoryMutation";
 import { useDeleteMultiplePartsMutation } from "@/mutations/useDeleteMultiplePartsMutation";
 import { useUpdateMultipleCategoriesMutation } from "@/mutations/useUpdateMultipleCategoriesMutation";
 import { TheButton } from "@/Shared/TheButton";
 
-const categoryRoute = getRouteApi(
-	"/_optionWrapper/options/category/$categoryId",
-);
-
 export const DeleteCategory = () => {
-	const { categoryId } = categoryRoute.useParams();
+	const categoryId = useOptionsCategoryId();
 	const { data: categories } = useSuspenseQuery(categoriesQueryOptions);
 	const { data: parts } = useSuspenseQuery(partsQueryOptions);
 

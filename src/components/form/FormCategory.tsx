@@ -1,10 +1,11 @@
 ﻿import { FormEvent, useEffect } from "react";
 import { useShallow } from "zustand/shallow";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { getRouteApi, Link } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { categoriesQueryOptions } from "@/queries/categoriesQuery";
 import { categoryQueryOptions } from "@/queries/categoryQuery";
 import { useFormStore } from "@/store/useFormStore";
+import { useCreatorCategoryId } from "@/hooks/useCreatorCategoryId";
 import { useInput } from "@/hooks/useInput";
 import { useNextCategory } from "@/hooks/useNextCategory";
 import { usePreviousCategory } from "@/hooks/usePreviousCategory";
@@ -12,10 +13,8 @@ import { TheStepper } from "@/components/form/TheStepper";
 import { TheButton } from "@/Shared/TheButton";
 import { TheRadio } from "@/Shared/TheRadio";
 
-const categoryRoute = getRouteApi("/_formWrapper/creator/$categoryId");
-
 export const FormCategory = () => {
-	const { categoryId } = categoryRoute.useParams();
+	const categoryId = useCreatorCategoryId();
 
 	const { data: categories } = useSuspenseQuery(categoriesQueryOptions);
 	const { data: category } = useSuspenseQuery(categoryQueryOptions(categoryId));
