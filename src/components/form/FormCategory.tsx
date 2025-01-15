@@ -5,10 +5,12 @@ import { categoriesQueryOptions } from "@/queries/categoriesQuery";
 import { categoryQueryOptions } from "@/queries/categoryQuery";
 import { useFormStore } from "@/store/useFormStore";
 import { useCreatorCategoryId } from "@/hooks/useCreatorCategoryId";
+import { useSelectedPart } from "@/hooks/useSelectedPart";
 import { useInput } from "@/hooks/useInput";
 import { TheStepper } from "@/components/form/TheStepper";
 import { FormCategoryPreviousCategory } from "@/components/form/FormCategoryPreviousCategory";
 import { FormCategoryNextCategory } from "@/components/form/FormCategoryNextCategory";
+import { FormCategoryTotalPrice } from "@/components/form/FormCategoryTotalPrice";
 import { TheButton } from "@/Shared/TheButton";
 import { TheRadio } from "@/Shared/TheRadio";
 
@@ -34,7 +36,9 @@ export const FormCategory = () => {
 	useEffect(() => {
 		category.parts.map((part) => {
 			if (part.id === partInput.value) {
-				localStorage.setItem(category.name, part.name);
+				const selectedPart = { name: part.name, price: part.price };
+				localStorage.setItem(category.name, JSON.stringify(selectedPart));
+
 				setFormData({
 					partValue: part.name,
 				});
@@ -42,7 +46,8 @@ export const FormCategory = () => {
 		});
 	}, [partInput.value]);
 
-	const NEXT_STEP = () => console.log(partInput.value);
+	const NEXT_STEP = () => console.log(form.partValue);
+	const selectedPart = useSelectedPart({ category, form });
 	return (
 		<>
 			<TheStepper categories={categories} selectedCategory={categoryId} />
@@ -57,12 +62,11 @@ export const FormCategory = () => {
 							name={category.name}
 							value={part.id}
 							onChange={partInput.onChange}
-							checked={
-								localStorage.getItem(category.name) === part.name ? true : false
-							}
+							checked={selectedPart.name === part.name ? true : false}
 						/>
 					))}
 				</fieldset>
+				<FormCategoryTotalPrice />
 				<FormCategoryPreviousCategory
 					category={category}
 					categories={categories}
@@ -71,14 +75,14 @@ export const FormCategory = () => {
 
 				{category.position === categories.length && (
 					<>
-						{categories.length !== localStorage.length && (
+						{categories.length !== localStorage.length / 2 - 1 && (
 							<p>Proszę zaznaczyć jedną z opcji z każdej kategorii</p>
 						)}
 						<TheButton
 							type="submit"
 							onClick={NEXT_STEP}
 							btnLabel="ZAPISZ"
-							disabled={categories.length !== localStorage.length}
+							disabled={categories.length !== localStorage.length - 1}
 						/>
 					</>
 				)}

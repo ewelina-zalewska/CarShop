@@ -71,3 +71,8 @@ export type useChangeCategoryProps = {
 	categories: CategoryResponse[];
 	categoryId: string;
 };
+
+export type selectedPart = {
+	name: string;
+	price: number;
+};
