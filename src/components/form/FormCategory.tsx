@@ -7,6 +7,7 @@ import { useFormStore } from "@/store/useFormStore";
 import { useCreatorCategoryId } from "@/hooks/useCreatorCategoryId";
 import { useSelectedPart } from "@/hooks/useSelectedPart";
 import { useInput } from "@/hooks/useInput";
+import { useSelectedParts } from "@/hooks/useSelectedParts";
 import { TheStepper } from "@/components/form/TheStepper";
 import { FormCategoryPreviousCategory } from "@/components/form/FormCategoryPreviousCategory";
 import { FormCategoryNextCategory } from "@/components/form/FormCategoryNextCategory";
@@ -16,9 +17,11 @@ import { TheRadio } from "@/Shared/TheRadio";
 
 export const FormCategory = () => {
 	const categoryId = useCreatorCategoryId();
-
+	const selectedParts = useSelectedParts();
 	const { data: categories } = useSuspenseQuery(categoriesQueryOptions);
-	const { data: category } = useSuspenseQuery(categoryQueryOptions(categoryId));
+	const { data: category, isPending } = useSuspenseQuery(
+		categoryQueryOptions(categoryId),
+	);
 
 	const { form, setFormData } = useFormStore(
 		useShallow((state) => ({
@@ -48,6 +51,10 @@ export const FormCategory = () => {
 
 	const NEXT_STEP = () => console.log(form.partValue);
 	const selectedPart = useSelectedPart({ category, form });
+	const lastCategory = category.position === categories.length;
+	const fullfilledForm = categories.length === selectedParts.length;
+
+	if (isPending) return <p>Loading...</p>;
 	return (
 		<>
 			<TheStepper categories={categories} selectedCategory={categoryId} />
@@ -73,9 +80,9 @@ export const FormCategory = () => {
 					categoryId={categoryId}
 				/>
 
-				{category.position === categories.length && (
+				{lastCategory && (
 					<>
-						{categories.length !== localStorage.length / 2 - 1 && (
+						{!fullfilledForm && (
 							<p>Proszę zaznaczyć jedną z opcji z każdej kategorii</p>
 						)}
 						<TheButton
