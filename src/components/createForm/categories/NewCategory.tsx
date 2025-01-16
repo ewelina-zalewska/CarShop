@@ -18,6 +18,7 @@ export const NewCategory = () => {
 
 	const { data: categories } = useSuspenseQuery(categoriesQueryOptions);
 	const { mutate: CREATE_CATEGORY, isSuccess } = useCreateCategoryMutation();
+
 	const [formState, setFormState, HANDLE_CHANGE] = useForm<CategoryForm>({
 		name: "",
 		identifier: "",

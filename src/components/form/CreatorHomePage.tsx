@@ -32,6 +32,8 @@ export const CreatorHomePage = () => {
 		form.setForm("started");
 	};
 
+	const GO_TO_HOME = () => navigate({ to: `/` });
+
 	return (
 		<>
 			{form.isClosed && (
@@ -41,9 +43,10 @@ export const CreatorHomePage = () => {
 				</div>
 			)}
 			<TheButton
-				btnLabel={form.isStarted ? "STOP" : "START"}
+				btnLabel={form.isStarted ? "DO STRONY GŁÓWNEJ" : "START"}
 				onClick={GO_TO_FORM}
 			/>
+			{form.isClosed && <TheButton btnLabel="POWRÓT" onClick={GO_TO_HOME} />}
 			<Outlet />
 		</>
 	);

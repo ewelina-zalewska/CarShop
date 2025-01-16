@@ -1,6 +1,7 @@
-﻿import { FormEvent, useEffect } from "react";
+﻿import { useEffect } from "react";
 import { useShallow } from "zustand/shallow";
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 import { categoriesQueryOptions } from "@/queries/categoriesQuery";
 import { categoryQueryOptions } from "@/queries/categoryQuery";
 import { useFormStore } from "@/store/useFormStore";
@@ -9,15 +10,16 @@ import { useSelectedPart } from "@/hooks/useSelectedPart";
 import { useInput } from "@/hooks/useInput";
 import { useSelectedParts } from "@/hooks/useSelectedParts";
 import { TheStepper } from "@/components/form/TheStepper";
-import { FormCategoryPreviousCategory } from "@/components/form/FormCategoryPreviousCategory";
-import { FormCategoryNextCategory } from "@/components/form/FormCategoryNextCategory";
-import { FormCategoryTotalPrice } from "@/components/form/FormCategoryTotalPrice";
+import { FormCategoryPreviousCategory } from "@/components/form/FormCategory/FormCategoryPreviousCategory";
+import { FormCategoryNextCategory } from "@/components/form/FormCategory/FormCategoryNextCategory";
+import { FormCategoryTotalPrice } from "@/components/form/FormCategory/FormCategoryTotalPrice";
 import { TheButton } from "@/Shared/TheButton";
 import { TheRadio } from "@/Shared/TheRadio";
 
 export const FormCategory = () => {
 	const categoryId = useCreatorCategoryId();
 	const selectedParts = useSelectedParts();
+
 	const { data: categories } = useSuspenseQuery(categoriesQueryOptions);
 	const { data: category, isPending } = useSuspenseQuery(
 		categoryQueryOptions(categoryId),
@@ -31,15 +33,15 @@ export const FormCategory = () => {
 	);
 
 	const partInput = useInput(form.partValue);
-	const HANDLE_SUBMIT = (e: FormEvent) => {
-		e.preventDefault();
-		console.log(partInput.value);
-	};
 
 	useEffect(() => {
 		category.parts.map((part) => {
 			if (part.id === partInput.value) {
-				const selectedPart = { name: part.name, price: part.price };
+				const selectedPart = {
+					name: part.name,
+					price: part.price,
+					category: category.name,
+				};
 				localStorage.setItem(category.name, JSON.stringify(selectedPart));
 
 				setFormData({
@@ -49,17 +51,21 @@ export const FormCategory = () => {
 		});
 	}, [partInput.value]);
 
-	const NEXT_STEP = () => console.log(form.partValue);
 	const selectedPart = useSelectedPart({ category, form });
 	const lastCategory = category.position === categories.length;
 	const fullfilledForm = categories.length === selectedParts.length;
 
+	const navigate = useNavigate();
+	const NEXT_STEP = () => navigate({ to: "/creator/orderdata" });
+
 	if (isPending) return <p>Loading...</p>;
+	if (localStorage.getItem("form") !== "started")
+		return <p>Go back and click the button START.</p>;
 	return (
 		<>
 			<TheStepper categories={categories} selectedCategory={categoryId} />
 
-			<form onSubmit={HANDLE_SUBMIT}>
+			<div>
 				<fieldset>
 					<legend>{category.name}</legend>
 					{category.parts.map((part) => (
@@ -99,7 +105,7 @@ export const FormCategory = () => {
 					categories={categories}
 					categoryId={categoryId}
 				/>
-			</form>
+			</div>
 		</>
 	);
 };

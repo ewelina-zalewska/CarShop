@@ -10,9 +10,11 @@ export const useSelectedPart = ({ category, form }: useSelectedPartProps) => {
 	const [selectedPart, setSelectedPart] = useState<{
 		name: string;
 		price: string;
+		category: string;
 	}>({
 		name: "",
 		price: "",
+		category: "",
 	});
 
 	useEffect(() => {
