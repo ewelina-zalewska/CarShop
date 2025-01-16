@@ -8,7 +8,7 @@ import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 export default defineConfig({
 	plugins: [TanStackRouterVite({}), react()],
 	css: {
-		devSourcemap: true,
+		// devSourcemap: true,
 		postcss: {
 			plugins: [tailwindcss()],
 		},
