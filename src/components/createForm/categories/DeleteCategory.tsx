@@ -52,9 +52,9 @@ export const DeleteCategory = () => {
 	return (
 		<div>
 			<p>
-				Do you really want to delete category <strong>{categoryName}</strong>?
+				Czy na pewno chesz usunąć kategorię <strong>{categoryName}</strong>?
 			</p>
-			<TheButton btnLabel="DELETE" onClick={HANDLE_DELETE} />
+			<TheButton btnLabel="USUŃ" onClick={HANDLE_DELETE} />
 			<Link to="/options/category/$categoryId" params={{ categoryId }}>
 				POWRÓT
 			</Link>
