@@ -1,7 +1,7 @@
 ﻿import { useEffect, useState } from "react";
 import { selectedPart } from "@/types";
 
-export const useTotalprice = (selectedParts: selectedPart[]) => {
+export const useTotalPrice = (selectedParts: selectedPart[]) => {
 	const [totalPrice, setTotalPrice] = useState<number>(0);
 
 	useEffect(() => {
