@@ -10,6 +10,12 @@ export type PartForm = {
 	partId: string;
 };
 
+export type OrderDataForm = {
+	firstName: string;
+	lastName: string;
+	email: string;
+};
+
 export type CategoryResponse = {
 	id: string;
 	name: string;
@@ -24,9 +30,21 @@ export type PartsResponse = {
 	partId: string;
 	categoryId: string;
 };
+
+export type OrderDataResponse = {
+	id: string;
+	firstName: string;
+	lastName: string;
+	email: string;
+	value: number;
+	details: string[];
+};
+
 export type CategoryDto = Omit<CategoryResponse, "id">;
 
 export type PartDto = Omit<PartsResponse, "id">;
+
+export type OrderDataDto = OrderDataResponse;
 
 export type CategoryFormErrors = {
 	name: string[];
@@ -39,6 +57,12 @@ export type PartFormErrors = {
 	partId: string[];
 };
 
+export type OrderDataFormErrors = {
+	firstName: string[];
+	lastName: string[];
+	email: string[];
+};
+
 export type NewCategoryFormFieldsetProps = {
 	onChange: (e: FormChangeEvent) => void;
 	formState: CategoryForm;
@@ -49,6 +73,12 @@ export type NewPartFormFieldsetProps = {
 	onChange: (e: FormChangeEvent) => void;
 	formState: PartForm;
 	errors: PartFormErrors;
+};
+
+export type NewOrderDataFormFieldsetProps = {
+	onChange: (e: FormChangeEvent) => void;
+	formState: OrderDataForm;
+	errors: OrderDataFormErrors;
 };
 
 export type CategoryOptions = CategoryResponse & {
@@ -75,4 +105,5 @@ export type useChangeCategoryProps = {
 export type selectedPart = {
 	name: string;
 	price: number;
+	category: string;
 };
