@@ -1,38 +1,6 @@
 ﻿import { createFileRoute } from "@tanstack/react-router";
 import { categoriesQueryOptions } from "@/queries/categoriesQuery";
 import { CreatorHomePage } from "@/components/form/CreatorHomePage";
-// import { useSuspenseQuery } from "@tanstack/react-query";
-
-// const Create = () => {
-// 	const { data } = useSuspenseQuery(categoriesQueryOptions);
-// 	return (
-// 		<main>
-// 			<h1>KREATOR AUTA</h1>
-// 			<main>
-// 				<nav>
-// 					<ul>
-// 						{data.map((category) => (
-// 							<li key={category.id}>
-// 								<Link
-// 									to="/create/$createId"
-// 									params={{ createId: category.identifier }}
-// 									search={{
-// 										page: 1,
-// 										pageSize: 4,
-// 									}}
-// 								>
-// 									{category.name}
-// 								</Link>
-// 							</li>
-// 						))}
-// 					</ul>
-// 				</nav>
-// 			</main>
-// 			<Outlet />
-// 			<Link to="..">DO STRONY GŁÓWNEJ</Link>
-// 		</main>
-// 	);
-// };
 
 const FormNotFound = () => {
 	return (

@@ -2,12 +2,11 @@
 import { orderQueryOptions } from "@/queries/orderQuery";
 import { TheButton } from "@/Shared/TheButton";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { getRouteApi, useNavigate } from "@tanstack/react-router";
-
-const categoryRoute = getRouteApi("/_formWrapper/creator/success/$orderId");
+import { useNavigate } from "@tanstack/react-router";
+import { useOrderId } from "@/hooks/useOrderId";
 
 export const TheSuccessDeleteOrder = () => {
-	const { orderId } = categoryRoute.useParams();
+	const orderId = useOrderId();
 	const {
 		data: order,
 		isLoading,
@@ -22,7 +21,6 @@ export const TheSuccessDeleteOrder = () => {
 		localStorage.clear();
 		navigate({ to: `/creator/success` });
 	};
-	const GO_TO_ORDER = () => navigate({ to: `/creator/success/${orderId}` });
 
 	if (isLoading) return <p>Loading...</p>;
 	return (
@@ -31,7 +29,6 @@ export const TheSuccessDeleteOrder = () => {
 				Czy na pewno chcesz usunąć zamównienie nr <strong>{order.id}</strong>?
 			</p>
 			<TheButton btnLabel="USUŃ" onClick={HANDLE_DELETE} />
-			<TheButton type="button" btnLabel="COFNIJ" onClick={GO_TO_ORDER} />
 			{error && <p>{error.message}</p>}
 		</div>
 	);

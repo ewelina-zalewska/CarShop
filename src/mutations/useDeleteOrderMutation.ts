@@ -16,10 +16,5 @@ export const useDeleteOrderMutation = () => {
 				queryKey: ["category"],
 			});
 		},
-		// onSuccess: (deletedOrder: OrderDataResponse) => {
-		// 	queryClient.setQueryData<OrderDataResponse[]>(["orders"], (oldOrders) => {
-		// 		return oldOrders?.filter((order) => order.id !== deletedOrder.id);
-		// 	});
-		// },
 	});
 };

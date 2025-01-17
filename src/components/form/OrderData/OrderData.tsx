@@ -5,6 +5,7 @@ import { useForm } from "@/hooks/useForm";
 import { useSuccess } from "@/hooks/useSuccess";
 import { useSelectedParts } from "@/hooks/useSelectedParts";
 import { useTotalPrice } from "@/hooks/useTotalPrice";
+import { useCreateOrderNumber } from "@/hooks/useCreateOrderNumber";
 import { useCreateOrderMutation } from "@/mutations/useCreateOrderMutation";
 import { validateOrderData as VALIDATE_ORDER_DATA } from "@/utils/validateOrderData";
 import { OrderDataFormFieldset } from "@/components/form/OrderData/OrderDataFormFieldset";
@@ -15,6 +16,7 @@ export const OrderData = () => {
 	const selectedParts = useSelectedParts();
 	const totalPrice = useTotalPrice(selectedParts);
 	const formRef = useRef<HTMLFormElement>(null);
+	const orderNo = useCreateOrderNumber();
 
 	const { success, setSuccess } = useSuccess();
 	const [submitClicked, setSubmitClicked] = useState<boolean>(false);
@@ -50,9 +52,8 @@ export const OrderData = () => {
 		if (!success) {
 			setSubmitClicked(true);
 		} else {
-			const randomId = Math.round(Math.random() * 10000).toString();
 			CREATE_ORDER({
-				id: randomId,
+				id: orderNo,
 				firstName,
 				lastName,
 				email,
@@ -67,7 +68,7 @@ export const OrderData = () => {
 			});
 			localStorage.clear();
 			setSubmitClicked(false);
-			navigate({ to: `/creator/success/${randomId}` });
+			navigate({ to: `/creator/success/${orderNo}` });
 			localStorage.setItem("form", "send");
 		}
 	};
@@ -75,7 +76,7 @@ export const OrderData = () => {
 	const SEND_FORM = () => formRef.current?.requestSubmit();
 
 	if (localStorage.getItem("form") !== "started")
-		return <p>Go back and click the button START.</p>;
+		return <p>Cofnij się i naciśnij na START.</p>;
 	return (
 		<div>
 			<OrderDataSummary />

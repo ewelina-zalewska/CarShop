@@ -4,7 +4,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { categoriesQueryOptions } from "@/queries/categoriesQuery";
 import { categoryQueryOptions } from "@/queries/categoryQuery";
-import { useFormStore } from "@/store/useFormStore";
+import { useOrderStore } from "@/store/useOrderStore";
 import { useCreatorCategoryId } from "@/hooks/useCreatorCategoryId";
 import { useSelectedPart } from "@/hooks/useSelectedPart";
 import { useInput } from "@/hooks/useInput";
@@ -25,7 +25,7 @@ export const FormCategory = () => {
 		categoryQueryOptions(categoryId),
 	);
 
-	const { form, setFormData } = useFormStore(
+	const { form, setFormData } = useOrderStore(
 		useShallow((state) => ({
 			form: state.form,
 			setFormData: state.setFormData,

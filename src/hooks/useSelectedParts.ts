@@ -1,4 +1,4 @@
-﻿import { useFormStore } from "@/store/useFormStore";
+﻿import { useOrderStore } from "@/store/useOrderStore";
 import { selectedPart } from "@/types";
 import { useEffect, useState } from "react";
 import { useShallow } from "zustand/shallow";
@@ -6,7 +6,7 @@ import { useShallow } from "zustand/shallow";
 export const useSelectedParts = () => {
 	const [selectedParts, setSelectedParts] = useState<selectedPart[]>([]);
 
-	const { form } = useFormStore(
+	const { form } = useOrderStore(
 		useShallow((state) => ({
 			form: state.form,
 		})),
