@@ -1,0 +1,39 @@
+﻿import { getRouteApi, useNavigate } from "@tanstack/react-router";
+import { useShallow } from "zustand/shallow";
+import { useOrderStore } from "@/store/useOrderStore";
+import { OrderContent } from "@/Shared/OrderContent";
+import { useEffect } from "react";
+import { TheButton } from "@/Shared/TheButton";
+
+const categoryRoute = getRouteApi("/order/$orderId");
+
+export const TheOrder = () => {
+	const { orderId } = categoryRoute.useParams();
+	const { setOrderData } = useOrderStore(
+		useShallow((state) => ({
+			setOrderData: state.setOrderData,
+			order: state.order,
+		})),
+	);
+
+	useEffect(() => {
+		setOrderData({
+			orderMode: "show",
+		});
+		return () => {
+			setOrderData({
+				orderMode: "hide",
+			});
+		};
+	}, []);
+
+	const navigate = useNavigate();
+	const GO_TO_FORM = () => navigate({ to: "/order" });
+
+	return (
+		<>
+			<OrderContent orderId={orderId} />
+			<TheButton btnLabel="COFNIJ" onClick={GO_TO_FORM} />
+		</>
+	);
+};

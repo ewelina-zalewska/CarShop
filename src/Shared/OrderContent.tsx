@@ -1,0 +1,40 @@
+﻿import { useSuspenseQuery } from "@tanstack/react-query";
+import { orderQueryOptions } from "@/queries/orderQuery";
+
+type OrderContent = {
+	orderId: string;
+};
+
+export const OrderContent = ({ orderId }: OrderContent) => {
+	const {
+		data: order,
+		isLoading,
+		error,
+	} = useSuspenseQuery(orderQueryOptions(orderId));
+
+	if (isLoading) return <p>Loading...</p>;
+	return (
+		<div>
+			<h2>Treść zamówienia:</h2>
+			<ul>
+				<li>
+					Zamówienie Nr: <strong>{order.id}</strong>
+				</li>
+				<li>
+					{order.firstName} {order.lastName}
+				</li>
+				<li>{order.email}</li>
+				<li>Wartość: {order.value}</li>
+				<li>
+					Szczegóły:
+					{order.details.map((item, index) => (
+						<p key={index}>
+							{index === order.details.length - 1 ? item + "." : item + ","}
+						</p>
+					))}
+				</li>
+			</ul>
+			{error && <p>{error?.message}</p>}
+		</div>
+	);
+};

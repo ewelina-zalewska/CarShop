@@ -11,10 +11,12 @@
 // Import Routes
 
 import { Route as rootRoute } from "./routes/__root";
+import { Route as OrderImport } from "./routes/order";
 import { Route as OptionWrapperImport } from "./routes/_optionWrapper";
 import { Route as FormWrapperImport } from "./routes/_formWrapper";
 import { Route as SplatImport } from "./routes/$";
 import { Route as IndexImport } from "./routes/index";
+import { Route as OrderOrderIdImport } from "./routes/order/$orderId";
 import { Route as OptionWrapperOptionsImport } from "./routes/_optionWrapper/options";
 import { Route as FormWrapperCreatorImport } from "./routes/_formWrapper/creator";
 import { Route as OptionWrapperOptionsIndexImport } from "./routes/_optionWrapper/options/index";
@@ -34,6 +36,12 @@ import { Route as OptionWrapperOptionsCategoryCategoryIdDeleteImport } from "./r
 import { Route as FormWrapperCreatorSuccessOrderIdDeleteImport } from "./routes/_formWrapper/creator/success/$orderId.delete";
 
 // Create/Update Routes
+
+const OrderRoute = OrderImport.update({
+	id: "/order",
+	path: "/order",
+	getParentRoute: () => rootRoute,
+} as any);
 
 const OptionWrapperRoute = OptionWrapperImport.update({
 	id: "/_optionWrapper",
@@ -56,6 +64,14 @@ const IndexRoute = IndexImport.update({
 	path: "/",
 	getParentRoute: () => rootRoute,
 } as any);
+
+const OrderOrderIdRoute = OrderOrderIdImport.update({
+	id: "/$orderId",
+	path: "/$orderId",
+	getParentRoute: () => OrderRoute,
+} as any).lazy(() =>
+	import("./routes/order/$orderId.lazy").then((d) => d.Route),
+);
 
 const OptionWrapperOptionsRoute = OptionWrapperOptionsImport.update({
 	id: "/options",
@@ -220,6 +236,13 @@ declare module "@tanstack/react-router" {
 			preLoaderRoute: typeof OptionWrapperImport;
 			parentRoute: typeof rootRoute;
 		};
+		"/order": {
+			id: "/order";
+			path: "/order";
+			fullPath: "/order";
+			preLoaderRoute: typeof OrderImport;
+			parentRoute: typeof rootRoute;
+		};
 		"/_formWrapper/creator": {
 			id: "/_formWrapper/creator";
 			path: "/creator";
@@ -233,6 +256,13 @@ declare module "@tanstack/react-router" {
 			fullPath: "/options";
 			preLoaderRoute: typeof OptionWrapperOptionsImport;
 			parentRoute: typeof OptionWrapperImport;
+		};
+		"/order/$orderId": {
+			id: "/order/$orderId";
+			path: "/$orderId";
+			fullPath: "/order/$orderId";
+			preLoaderRoute: typeof OrderOrderIdImport;
+			parentRoute: typeof OrderImport;
 		};
 		"/_formWrapper/creator/$": {
 			id: "/_formWrapper/creator/$";
@@ -470,12 +500,24 @@ const OptionWrapperRouteWithChildren = OptionWrapperRoute._addFileChildren(
 	OptionWrapperRouteChildren,
 );
 
+interface OrderRouteChildren {
+	OrderOrderIdRoute: typeof OrderOrderIdRoute;
+}
+
+const OrderRouteChildren: OrderRouteChildren = {
+	OrderOrderIdRoute: OrderOrderIdRoute,
+};
+
+const OrderRouteWithChildren = OrderRoute._addFileChildren(OrderRouteChildren);
+
 export interface FileRoutesByFullPath {
 	"/": typeof IndexRoute;
 	"/$": typeof SplatRoute;
 	"": typeof OptionWrapperRouteWithChildren;
+	"/order": typeof OrderRouteWithChildren;
 	"/creator": typeof FormWrapperCreatorRouteWithChildren;
 	"/options": typeof OptionWrapperOptionsRouteWithChildren;
+	"/order/$orderId": typeof OrderOrderIdRoute;
 	"/creator/$": typeof FormWrapperCreatorSplatRoute;
 	"/creator/$categoryId": typeof FormWrapperCreatorCategoryIdRoute;
 	"/creator/orderdata": typeof FormWrapperCreatorOrderdataRoute;
@@ -497,6 +539,8 @@ export interface FileRoutesByTo {
 	"/": typeof IndexRoute;
 	"/$": typeof SplatRoute;
 	"": typeof OptionWrapperRouteWithChildren;
+	"/order": typeof OrderRouteWithChildren;
+	"/order/$orderId": typeof OrderOrderIdRoute;
 	"/creator/$": typeof FormWrapperCreatorSplatRoute;
 	"/creator/$categoryId": typeof FormWrapperCreatorCategoryIdRoute;
 	"/creator/orderdata": typeof FormWrapperCreatorOrderdataRoute;
@@ -520,8 +564,10 @@ export interface FileRoutesById {
 	"/$": typeof SplatRoute;
 	"/_formWrapper": typeof FormWrapperRouteWithChildren;
 	"/_optionWrapper": typeof OptionWrapperRouteWithChildren;
+	"/order": typeof OrderRouteWithChildren;
 	"/_formWrapper/creator": typeof FormWrapperCreatorRouteWithChildren;
 	"/_optionWrapper/options": typeof OptionWrapperOptionsRouteWithChildren;
+	"/order/$orderId": typeof OrderOrderIdRoute;
 	"/_formWrapper/creator/$": typeof FormWrapperCreatorSplatRoute;
 	"/_formWrapper/creator/$categoryId": typeof FormWrapperCreatorCategoryIdRoute;
 	"/_formWrapper/creator/orderdata": typeof FormWrapperCreatorOrderdataRoute;
@@ -545,8 +591,10 @@ export interface FileRouteTypes {
 		| "/"
 		| "/$"
 		| ""
+		| "/order"
 		| "/creator"
 		| "/options"
+		| "/order/$orderId"
 		| "/creator/$"
 		| "/creator/$categoryId"
 		| "/creator/orderdata"
@@ -567,6 +615,8 @@ export interface FileRouteTypes {
 		| "/"
 		| "/$"
 		| ""
+		| "/order"
+		| "/order/$orderId"
 		| "/creator/$"
 		| "/creator/$categoryId"
 		| "/creator/orderdata"
@@ -588,8 +638,10 @@ export interface FileRouteTypes {
 		| "/$"
 		| "/_formWrapper"
 		| "/_optionWrapper"
+		| "/order"
 		| "/_formWrapper/creator"
 		| "/_optionWrapper/options"
+		| "/order/$orderId"
 		| "/_formWrapper/creator/$"
 		| "/_formWrapper/creator/$categoryId"
 		| "/_formWrapper/creator/orderdata"
@@ -613,6 +665,7 @@ export interface RootRouteChildren {
 	SplatRoute: typeof SplatRoute;
 	FormWrapperRoute: typeof FormWrapperRouteWithChildren;
 	OptionWrapperRoute: typeof OptionWrapperRouteWithChildren;
+	OrderRoute: typeof OrderRouteWithChildren;
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -620,6 +673,7 @@ const rootRouteChildren: RootRouteChildren = {
 	SplatRoute: SplatRoute,
 	FormWrapperRoute: FormWrapperRouteWithChildren,
 	OptionWrapperRoute: OptionWrapperRouteWithChildren,
+	OrderRoute: OrderRouteWithChildren,
 };
 
 export const routeTree = rootRoute
@@ -635,7 +689,8 @@ export const routeTree = rootRoute
         "/",
         "/$",
         "/_formWrapper",
-        "/_optionWrapper"
+        "/_optionWrapper",
+        "/order"
       ]
     },
     "/": {
@@ -654,6 +709,12 @@ export const routeTree = rootRoute
       "filePath": "_optionWrapper.tsx",
       "children": [
         "/_optionWrapper/options"
+      ]
+    },
+    "/order": {
+      "filePath": "order.tsx",
+      "children": [
+        "/order/$orderId"
       ]
     },
     "/_formWrapper/creator": {
@@ -677,6 +738,10 @@ export const routeTree = rootRoute
         "/_optionWrapper/options/new",
         "/_optionWrapper/options/"
       ]
+    },
+    "/order/$orderId": {
+      "filePath": "order/$orderId.tsx",
+      "parent": "/order"
     },
     "/_formWrapper/creator/$": {
       "filePath": "_formWrapper/creator/$.tsx",
