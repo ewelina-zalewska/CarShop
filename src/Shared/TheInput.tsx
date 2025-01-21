@@ -18,7 +18,7 @@ export const TheInput = ({
 	onChange,
 }: TheInputProps) => {
 	return (
-		<div>
+		<>
 			<legend>{legend}</legend>
 			<input
 				type={type}
@@ -26,7 +26,8 @@ export const TheInput = ({
 				placeholder={placeholder}
 				value={value}
 				onChange={onChange}
+				className="border-[4px] rounded-xl text-center text-theme-dark-color  focus:outline-none focus:ring-0 focus:border-theme-additional-color p-[5px]"
 			/>
-		</div>
+		</>
 	);
 };

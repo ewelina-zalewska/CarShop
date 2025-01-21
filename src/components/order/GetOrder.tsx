@@ -1,13 +1,17 @@
 ﻿import { FormEvent, useEffect, useRef, useState } from "react";
-import { Link, Outlet, useNavigate } from "@tanstack/react-router";
+import { Outlet, useNavigate } from "@tanstack/react-router";
 import { useShallow } from "zustand/shallow";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ordersQueryOptions } from "@/queries/ordersQuery";
 import { useOrderStore } from "@/store/useOrderStore";
 import { useInput } from "@/hooks/useInput";
 import { validateOrder as VALIDATE_ORDER } from "@/utils/validateOrder";
+import { MenuCollapsibleAccordion } from "@/Shared/MenuCollapsibleAccordion";
+import { MainCollapsibleAccordion } from "@/Shared/MainCollapsibleAccordion";
+import { FormCollapsibleAccordion } from "@/Shared/FormCollapsibleAccordion";
 import { TheInput } from "@/Shared/TheInput";
 import { TheButton } from "@/Shared/TheButton";
+import { LinkToPage } from "@/Shared/LinkToPage";
 
 export const GetOrder = () => {
 	const formRef = useRef<HTMLFormElement>(null);
@@ -45,17 +49,21 @@ export const GetOrder = () => {
 		});
 		setError(checkOrder.newError);
 		if (checkOrder.noFullfilled || !checkOrder.isOrder) return;
-		else navigate({ to: `/order/${orderId.value}` });
-		orderId.setValue("");
+		else {
+			navigate({ to: `/order/${orderId.value}` });
+			orderId.setValue("");
+		}
 	};
 
 	const SEND_FORM = () => formRef.current?.requestSubmit();
 	const showedOrder = order.orderMode === "show";
 	return (
 		<>
-			<h2>Tu możesz sprawdzić swoje zamówienie:</h2>
-			<form ref={formRef} onSubmit={HANDLE_SUBMIT}>
-				<div>
+			<MenuCollapsibleAccordion title="Car Shop">
+				<LinkToPage title="Do strony głównej" link="/" />
+			</MenuCollapsibleAccordion>
+			<MainCollapsibleAccordion>
+				<FormCollapsibleAccordion formRef={formRef} onSubmit={HANDLE_SUBMIT}>
 					<TheInput
 						legend="Twój numer zamówienia:"
 						type="text"
@@ -64,18 +72,19 @@ export const GetOrder = () => {
 						value={orderId.value}
 						onChange={orderId.onChange}
 					/>
-					{submitClicked && !showedOrder && <p>{error}</p>}
-				</div>
+					{submitClicked && !showedOrder && (
+						<p className="text-theme-error-color p-2">{error}</p>
+					)}
 
-				<TheButton
-					onClick={SEND_FORM}
-					btnLabel="SPRAWDŻ"
-					disabled={showedOrder}
-					type="submit"
-				></TheButton>
-			</form>
-			<Outlet />
-			<Link to="/">DO STRONY GŁÓWNEJ</Link>
+					<TheButton
+						onClick={SEND_FORM}
+						btnLabel={!showedOrder ? "Sprawdź" : "Nieaktywny"}
+						disabled={showedOrder}
+						type="submit"
+					></TheButton>
+				</FormCollapsibleAccordion>
+				<Outlet />
+			</MainCollapsibleAccordion>
 		</>
 	);
 };

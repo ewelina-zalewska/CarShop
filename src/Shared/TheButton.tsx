@@ -19,6 +19,7 @@ export const TheButton = ({
 			type={type}
 			disabled={disabled}
 			onClick={onClick}
+			className="shadow-additionalColorkBorder bg-theme-additional-color text-theme-dark-color py-2 px-2 rounded-xl hover:font-bold"
 		>
 			{btnLabel}
 		</button>

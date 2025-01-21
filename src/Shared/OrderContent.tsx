@@ -14,8 +14,8 @@ export const OrderContent = ({ orderId }: OrderContent) => {
 
 	if (isLoading) return <p>Loading...</p>;
 	return (
-		<div>
-			<h2>Treść zamówienia:</h2>
+		<>
+			<h2 className="text-center">Treść zamówienia:</h2>
 			<ul>
 				<li>
 					Zamówienie Nr: <strong>{order.id}</strong>
@@ -35,6 +35,6 @@ export const OrderContent = ({ orderId }: OrderContent) => {
 				</li>
 			</ul>
 			{error && <p>{error?.message}</p>}
-		</div>
+		</>
 	);
 };

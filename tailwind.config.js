@@ -4,12 +4,40 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 export default {
 	content: ["./index.html", "./src/**/*.{tsx, css, js, ts}"],
 	theme: {
-		fontFamily: {
-			sans: ["'Roboto Flex'", ...defaultTheme.fontFamily.sans],
-			// serif: ["'Roboto Flex'", ...defaultTheme.fontFamily.sans],
-			colors: {},
+		screens: {
+			xs: "475px",
+			sm: "640px",
+			md: "768px",
+			lg: "1024px",
+			xl: "1280px",
+			...defaultTheme.screens,
 		},
-		extend: {},
+		fontFamily: {
+			sans: ["Roboto Condensed", ...defaultTheme.fontFamily.sans],
+			// serif: ["'Roboto Flex'", ...defaultTheme.fontFamily.sans],
+		},
+		colors: {
+			"theme-light-color": "var(--light-color)",
+			"theme-lightblue-color": "var(--lightblue-color)",
+			"theme-body-color": "var(--body-color)",
+			"theme-dark-color": "var(--dark-color)",
+			"theme-error-color": "var(--error-color)",
+			"theme-additional-color": "var(--additional-color)",
+			"theme-transparent-color": "var(--transparent-color)",
+		},
+		extend: {
+			backgroundImage: () => ({
+				background: "var(--background)",
+				leftArrowBg: "var(--left-arrow-bg)",
+				rightArrowBg: "var(--right-arrow-bg)",
+			}),
+
+			boxShadow: {
+				blurredBorder: "0 0 1.5px 1.5px var(--body-color)",
+				darkBorder: "0 0 1.5px 1.5px var(--dark-color)",
+				additionalColorkBorder: "0 0 1.5px 1.5px var(--additional-color)",
+			},
+		},
 	},
 	plugins: [],
 };

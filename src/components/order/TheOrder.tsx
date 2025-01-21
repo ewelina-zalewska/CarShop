@@ -4,6 +4,7 @@ import { useOrderStore } from "@/store/useOrderStore";
 import { OrderContent } from "@/Shared/OrderContent";
 import { useEffect } from "react";
 import { TheButton } from "@/Shared/TheButton";
+import { OrderContainer } from "@/Shared/OrderContainer";
 
 const categoryRoute = getRouteApi("/order/$orderId");
 
@@ -31,9 +32,11 @@ export const TheOrder = () => {
 	const GO_TO_FORM = () => navigate({ to: "/order" });
 
 	return (
-		<>
-			<OrderContent orderId={orderId} />
-			<TheButton btnLabel="COFNIJ" onClick={GO_TO_FORM} />
-		</>
+		<div className="h-screen w-full flex justify-center items-center">
+			<OrderContainer>
+				<OrderContent orderId={orderId} />
+				<TheButton btnLabel="Cofnij" onClick={GO_TO_FORM} />
+			</OrderContainer>
+		</div>
 	);
 };
