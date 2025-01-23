@@ -1,6 +1,6 @@
 ﻿import { useEffect } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 import { categoriesQueryOptions } from "@/queries/categoriesQuery";
 import { partsQueryOptions } from "@/queries/partsQuery";
 import { useOptionsCategoryId } from "@/hooks/useOprionsCategoryId";
@@ -8,6 +8,8 @@ import { useDeleteCategoryMutation } from "@/mutations/useDeleteCategoryMutation
 import { useDeleteMultiplePartsMutation } from "@/mutations/useDeleteMultiplePartsMutation";
 import { useUpdateMultipleCategoriesMutation } from "@/mutations/useUpdateMultipleCategoriesMutation";
 import { TheButton } from "@/Shared/TheButton";
+import { ModalBox } from "@/Shared/ModalBox";
+import { LinkToPage } from "@/Shared/LinkToPage";
 
 export const DeleteCategory = () => {
 	const categoryId = useOptionsCategoryId();
@@ -48,17 +50,18 @@ export const DeleteCategory = () => {
 		navigate({ to: "/options/category" });
 	}, [isSuccess]);
 
-	if (isPending) return <p>Loading...</p>;
+	if (isPending)
+		return <p>Loading...Loading...Loading...Loading...Loading...Loading...</p>;
+	if (error) return <p>{error.message} </p>;
 	return (
-		<div>
-			<p>
-				Czy na pewno chesz usunąć kategorię <strong>{categoryName}</strong>?
-			</p>
-			<TheButton btnLabel="USUŃ" onClick={HANDLE_DELETE} />
-			<Link to="/options/category/$categoryId" params={{ categoryId }}>
-				POWRÓT
-			</Link>
-			{error && <p>{error.message}</p>}
-		</div>
+		<>
+			<ModalBox width={500} height={300}>
+				<p>
+					Czy na pewno chcesz usunąć kategorię <strong>{categoryName}</strong>?
+				</p>
+				<TheButton btnLabel="Usuń" onClick={HANDLE_DELETE} />
+				<LinkToPage link="/options/category/$categoryId" title="Powrót" />
+			</ModalBox>
+		</>
 	);
 };

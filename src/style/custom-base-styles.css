@@ -1,15 +1,15 @@
 ﻿body {
 	box-sizing: border-box;
-	background-color: #040400;
+	background-color: #001b4a;
 }
 
 #root {
 	@apply lg:relative lg:bg-background lg:bg-left-top bg-theme-dark-color font-sans h-screen bg-no-repeat bg-cover max-w-[1300px] overflow-hidden my-0 mx-auto shadow-blurredBorder min-h-screen overflow-y-auto;
-	--body-color: #040400;
-	--light-color: #edece8;
+	--body-color: #001b4a --light-color: #edece8;
 	--lightblue-color: #ccebe6;
 	--dark-color: #001b4a;
 	--transparent-color: transparent;
+	--translucent-color: rgba(0, 27, 74, 0.8);
 	--additional-color: #6681b0;
 	--error-color: #e21e13;
 	--background: url("@/assets/images/background.webp");

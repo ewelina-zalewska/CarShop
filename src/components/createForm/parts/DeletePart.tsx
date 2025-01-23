@@ -1,6 +1,7 @@
 ﻿import { PartsResponse } from "@/types";
 import { useDeletePartMutation } from "@/mutations/useDeletePartMutation";
 import { TheButton } from "@/Shared/TheButton";
+import { ModalBox } from "@/Shared/ModalBox";
 
 type DeletePartConfirmationProps = {
 	onCancel: () => void;
@@ -15,15 +16,18 @@ export const DeletePart = ({
 
 	const HANDLE_DELETE = () => DELETE_PART(deletedPart.id);
 
-	if (isPending) return <p>Loading...</p>;
+	if (isPending)
+		return <p>Loading...Loading...Loading...Loading...Loading...Loading...</p>;
+	if (error) return <p>{error.message} </p>;
 	return (
-		<div>
-			<p>
-				Do you really want to delete option <strong>{deletedPart.name}</strong>?
-			</p>
-			<TheButton btnLabel="DELETE" onClick={HANDLE_DELETE} />
-			<TheButton btnLabel="CANCEL" onClick={onCancel} />
-			{error && <p>{error.message}</p>}
-		</div>
+		<>
+			<ModalBox width={500} height={200}>
+				<p>
+					Czy na pewno chcesz usunąć opcję <strong>{deletedPart.name}</strong>?
+				</p>
+				<TheButton btnLabel="Usuń" onClick={HANDLE_DELETE} />
+				<TheButton btnLabel="Zostaw" onClick={onCancel} />
+			</ModalBox>
+		</>
 	);
 };

@@ -16,21 +16,22 @@ export const SinglePart = ({ option }: optionProps) => {
 	const TOGGLE_DELETE_MODE = () =>
 		setDeleted((prevDeleted) => (prevDeleted === "delete" ? "none" : "delete"));
 
-	if (isPending) return <p>Loading...</p>;
+	if (isPending)
+		return <p>Loading...Loading...Loading...Loading...Loading...Loading...</p>;
+	if (error) return <p>{error.message} </p>;
 	return (
 		<>
-			<li>
-				{option.name}
+			<div className="flex justify-between pb-2 pr-1 mt-1">
+				<p>{option.name}</p>
 				<TheButton
-					btnLabel={deleted === "delete" ? "CANCEL" : "DELETE"}
+					btnLabel="Usuń"
 					disabled={isPending}
 					onClick={TOGGLE_DELETE_MODE}
 				/>
-			</li>
+			</div>
 			{deleted === "delete" && (
 				<DeletePart onCancel={TOGGLE_DELETE_MODE} deletedPart={option} />
 			)}
-			{error && <p>{error.message}</p>}
 		</>
 	);
 };

@@ -24,6 +24,7 @@ export default {
 			"theme-error-color": "var(--error-color)",
 			"theme-additional-color": "var(--additional-color)",
 			"theme-transparent-color": "var(--transparent-color)",
+			"theme-translucent-color": "var(--translucent-color)",
 		},
 		extend: {
 			backgroundImage: () => ({

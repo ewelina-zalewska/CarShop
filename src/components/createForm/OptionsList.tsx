@@ -1,11 +1,11 @@
 ﻿import { Link, Outlet } from "@tanstack/react-router";
+import { MenuCollapsibleAccordion } from "@/Shared/MenuCollapsibleAccordion";
+import { MainCollapsibleAccordion } from "@/Shared/MainCollapsibleAccordion";
 
 export const OptionsList = () => {
 	return (
 		<>
-			<nav>
-				<h1>ZARZĄDZAJ LISTĄ</h1>
-
+			<MenuCollapsibleAccordion title="Car Shop">
 				<ul>
 					<li>
 						<Link to="/options/category">DO LISTY KATEGORII</Link>
@@ -17,10 +17,10 @@ export const OptionsList = () => {
 						<Link to="..">DO STRONY GŁOWNEJ</Link>
 					</li>
 				</ul>
-			</nav>
-			<section>
+			</MenuCollapsibleAccordion>
+			<MainCollapsibleAccordion>
 				<Outlet />
-			</section>
+			</MainCollapsibleAccordion>
 		</>
 	);
 };

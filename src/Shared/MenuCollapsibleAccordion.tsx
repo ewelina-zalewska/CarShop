@@ -11,7 +11,7 @@ export const MenuCollapsibleAccordion = ({
 	children,
 }: FormCollapsibleAccordionProps) => {
 	return (
-		<header className="z-50 lg:absolute top-0 left-0 lg:w-[260px] lg:h-[200px] lg:text-theme-dark-color text-theme-dark-color h-auto p-[30px] lg:p-1 text-center lg:text-left bg-theme-lightblue-color lg:bg-theme-transparent-color text-[20px]">
+		<header className="z-50 lg:absolute top-0 left-0 lg:w-[300px] lg:h-[200px] lg:text-theme-dark-color text-theme-dark-color h-auto p-[30px] lg:p-1 text-center lg:text-left bg-theme-lightblue-color lg:bg-theme-transparent-color text-[20px]">
 			<div className="lg:flex lg:gap-3 lg:items-center lg:ml-5">
 				<img
 					className="lg:inline-block hidden lg:h-9 "
