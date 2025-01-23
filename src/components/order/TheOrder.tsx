@@ -1,10 +1,10 @@
-﻿import { getRouteApi, useNavigate } from "@tanstack/react-router";
+﻿import { getRouteApi } from "@tanstack/react-router";
 import { useShallow } from "zustand/shallow";
 import { useOrderStore } from "@/store/useOrderStore";
 import { OrderContent } from "@/Shared/OrderContent";
 import { useEffect } from "react";
-import { TheButton } from "@/Shared/TheButton";
-import { OrderContainer } from "@/Shared/OrderContainer";
+import { ModalBox } from "@/Shared/ModalBox";
+import { LinkToPage } from "@/Shared/LinkToPage";
 
 const categoryRoute = getRouteApi("/order/$orderId");
 
@@ -28,15 +28,10 @@ export const TheOrder = () => {
 		};
 	}, []);
 
-	const navigate = useNavigate();
-	const GO_TO_FORM = () => navigate({ to: "/order" });
-
 	return (
-		<div className="h-screen w-full flex justify-center items-center">
-			<OrderContainer>
-				<OrderContent orderId={orderId} />
-				<TheButton btnLabel="Cofnij" onClick={GO_TO_FORM} />
-			</OrderContainer>
-		</div>
+		<ModalBox width={300} height={550}>
+			<OrderContent orderId={orderId} />
+			<LinkToPage title="Powrót" link="/order" />
+		</ModalBox>
 	);
 };
