@@ -67,6 +67,7 @@ export type NewCategoryFormFieldsetProps = {
 	onChange: (e: FormChangeEvent) => void;
 	formState: CategoryForm;
 	errors: CategoryFormErrors;
+	disabled: boolean;
 };
 
 export type NewPartFormFieldsetProps = {

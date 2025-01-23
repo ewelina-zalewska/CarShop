@@ -6,26 +6,29 @@ export const NewCategoryFormFieldset = ({
 	onChange,
 	formState,
 	errors,
+	disabled,
 }: NewCategoryFormFieldsetProps) => {
 	const { name, identifier } = formState;
 	return (
 		<>
 			<TheInput
-				legend="Nazwa"
+				label="Nazwa"
 				type="text"
 				name="name"
 				placeholder="nazwa kategorii"
 				value={name}
 				onChange={onChange}
+				disabled={disabled}
 			/>
 			<FieldErrors errors={errors.name} />
 			<TheInput
-				legend="Identyfikator"
+				label="Identyfikator"
 				type="text"
 				name="identifier"
 				placeholder="identyfikator kategorii"
 				value={identifier}
 				onChange={onChange}
+				disabled={disabled}
 			/>
 			<FieldErrors errors={errors.identifier} />
 		</>

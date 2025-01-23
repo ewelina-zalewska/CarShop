@@ -13,6 +13,8 @@
 	--translucent-color: rgba(0, 27, 74, 0.8);
 	--additional-color: #6681b0;
 	--pink-color: #d1a2a3;
+	--light-gray-color: #cbcbcb;
+	--dark-gray-color: #2c2c2c;
 	--error-color: #e21e13;
 	--background: url("@/assets/images/background.webp");
 	--left-arrow-bg: url("@/assets/images/left_arrow.png");
@@ -24,4 +26,10 @@ li {
 }
 li:hover {
 	@apply font-bold;
+}
+
+.disabledElement {
+	background-color: var(--light-gray-color);
+	color: var(--dark-gray-color);
+	box-shadow: 0 0 1.5px 1.5px var(--dark-gray-color);
 }
