@@ -10,15 +10,15 @@ export const validateCategory = (categoryForm: CategoryForm) => {
 	};
 
 	if (!name.trim()) {
-		newErrors.name.push("Category name is required.");
+		newErrors.name.push("Nazwa kategorii jest wymagana.");
 	} else if (name.length < 3) {
-		newErrors.name.push("Category name must be at least 3 characters long.");
+		newErrors.name.push("Podaj przynajmniej 3 znaki.");
 	}
 
 	if (!identifier.trim()) {
-		newErrors.identifier.push("Identifier is required.");
+		newErrors.identifier.push("Identyfikator jest wymagany.");
 	} else if (identifier.length < 3) {
-		newErrors.identifier.push("Identifier be at least 3 characters long.");
+		newErrors.identifier.push("Podaj przynajmniej 3 znaki.");
 	}
 
 	if (

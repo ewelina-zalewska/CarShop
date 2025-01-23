@@ -11,19 +11,19 @@ export const validateOrderData = (orderDataForm: OrderDataForm) => {
 	};
 
 	if (!firstName.trim()) {
-		newErrors.firstName.push("First name is required.");
+		newErrors.firstName.push("Imię jest wymagane.");
 	} else if (firstName.length < 2) {
-		newErrors.firstName.push("First name must be at least 2 characters long.");
+		newErrors.firstName.push("Podaj przynajmniej 2 znaki.");
 	}
 
 	if (!lastName.trim()) {
-		newErrors.lastName.push("Last name is required.");
+		newErrors.lastName.push("Nazwisko jest wymagane.");
 	} else if (lastName.length < 2) {
-		newErrors.lastName.push("Last name must be at least 2 characters long.");
+		newErrors.lastName.push("Podaj przynajmniej 2 znaki.");
 	}
 
 	if (!email.trim()) {
-		newErrors.email.push("Email is required.");
+		newErrors.email.push("Email jest wymagany.");
 	}
 
 	if (
