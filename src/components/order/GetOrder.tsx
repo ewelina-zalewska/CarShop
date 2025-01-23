@@ -51,6 +51,7 @@ export const GetOrder = () => {
 		if (checkOrder.noFullfilled || !checkOrder.isOrder) return;
 		else {
 			navigate({ to: `/order/${orderId.value}` });
+			setSubmitClicked(false);
 			orderId.setValue("");
 		}
 	};
@@ -78,7 +79,7 @@ export const GetOrder = () => {
 
 					<TheButton
 						onClick={SEND_FORM}
-						btnLabel={!showedOrder ? "Sprawdź" : "Nieaktywny"}
+						btnLabel="Sprawdź"
 						disabled={showedOrder}
 						type="submit"
 					></TheButton>
