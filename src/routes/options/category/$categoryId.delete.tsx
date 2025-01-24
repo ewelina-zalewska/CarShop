@@ -18,9 +18,7 @@ const Error = () => {
 	);
 };
 
-export const Route = createFileRoute(
-	"/_optionWrapper/options/category/$categoryId/delete",
-)({
+export const Route = createFileRoute("/options/category/$categoryId/delete")({
 	loader: ({ context, params }) => {
 		const { queryClient } = context;
 		const { categoryId } = params;

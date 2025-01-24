@@ -1,4 +1,4 @@
-﻿import { useEffect } from "react";
+﻿import { FormEvent, useEffect } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { categoriesQueryOptions } from "@/queries/categoriesQuery";
@@ -26,7 +26,8 @@ export const DeleteCategory = () => {
 	const { mutate: UPDATE_CATEGORY_POSITION } =
 		useUpdateMultipleCategoriesMutation();
 
-	const HANDLE_DELETE = () => {
+	const HANDLE_DELETE = (e: FormEvent) => {
+		e.preventDefault();
 		DELETE_CATEGORY(categoryId);
 
 		const partsToDelete = parts?.filter(
@@ -50,8 +51,7 @@ export const DeleteCategory = () => {
 		navigate({ to: "/options/category" });
 	}, [isSuccess]);
 
-	if (isPending)
-		return <p>Loading...Loading...Loading...Loading...Loading...Loading...</p>;
+	if (isPending) return <p>Loading...</p>;
 	if (error) return <p>{error.message} </p>;
 	return (
 		<>

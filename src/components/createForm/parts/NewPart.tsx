@@ -9,6 +9,7 @@ import { TheButton } from "@/Shared/TheButton";
 import { validatePart as VALIDATE_PART } from "@/utils/validatePart";
 import { ModalBox } from "@/Shared/ModalBox";
 import { LinkToPage } from "@/Shared/LinkToPage";
+import { useNavigate } from "@tanstack/react-router";
 
 export const NewPart = () => {
 	const categoryId = useOptionsCategoryId();
@@ -38,15 +39,16 @@ export const NewPart = () => {
 		}
 	}, [formState, submitClicked]);
 
+	const navigate = useNavigate();
 	const HANDLE_SUBMIT = (e: FormEvent) => {
 		e.preventDefault();
-		const { newErrors, isSuccess } = VALIDATE_PART(formState);
+		const { newErrors, isSuccess: noError } = VALIDATE_PART(formState);
 		setErrors(newErrors);
-		setSuccess(isSuccess);
+		setSuccess(noError);
 
 		if (!success) {
 			setSubmitClicked(true);
-		} else {
+		} else if (success) {
 			CREATE_PART({
 				name,
 				price,
@@ -60,7 +62,7 @@ export const NewPart = () => {
 				partId: "",
 			});
 			setSubmitClicked(false);
-			console.log("Form is being sent!");
+			navigate({ to: `/options/category` });
 		}
 	};
 
@@ -81,7 +83,7 @@ export const NewPart = () => {
 					/>
 					<TheButton
 						onClick={SEND_FORM}
-						btnLabel="DODAJ OPCJE"
+						btnLabel="Dodaj opcję"
 						type="submit"
 					></TheButton>
 				</form>

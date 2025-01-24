@@ -1,7 +1,7 @@
 ﻿import { ReactNode } from "react";
 import carImage from "@/assets/images/car.webp";
 
-type FormCollapsibleAccordionProps = {
+type MenuCollapsibleAccordionProps = {
 	title?: string;
 	children?: ReactNode;
 };
@@ -9,7 +9,7 @@ type FormCollapsibleAccordionProps = {
 export const MenuCollapsibleAccordion = ({
 	title,
 	children,
-}: FormCollapsibleAccordionProps) => {
+}: MenuCollapsibleAccordionProps) => {
 	return (
 		<header className="z-50 lg:absolute top-0 left-0 lg:w-[300px] lg:h-[200px] lg:text-theme-dark-color text-theme-dark-color h-auto p-[30px] lg:p-1 text-center lg:text-left bg-theme-lightblue-color lg:bg-theme-transparent-color text-[20px]">
 			<div className="lg:flex lg:gap-3 lg:items-center lg:ml-5">

@@ -12,7 +12,7 @@ export const OrderDataFormFieldset = ({
 		<fieldset>
 			<div>
 				<TheInput
-					legend="Imię:"
+					label="Imię:"
 					type="text"
 					name="firstName"
 					placeholder="imię"
@@ -23,7 +23,7 @@ export const OrderDataFormFieldset = ({
 			</div>
 			<div>
 				<TheInput
-					legend="Nazwisko:"
+					label="Nazwisko:"
 					type="text"
 					name="lastName"
 					placeholder="nazwisko"
@@ -34,7 +34,7 @@ export const OrderDataFormFieldset = ({
 			</div>
 			<div>
 				<TheInput
-					legend="Email"
+					label="Email"
 					type="email"
 					name="email"
 					placeholder="email"

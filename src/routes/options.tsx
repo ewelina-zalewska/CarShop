@@ -9,7 +9,7 @@ const OptionNotFound = () => {
 		</div>
 	);
 };
-export const Route = createFileRoute("/_optionWrapper/options")({
+export const Route = createFileRoute("/options")({
 	component: OptionsList,
 	notFoundComponent: OptionNotFound,
 });

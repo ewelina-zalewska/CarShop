@@ -9,10 +9,11 @@ import { NewCategoryFormFieldset } from "@/components/createForm/categories/NewC
 import { TheButton } from "@/Shared/TheButton";
 
 import { validateCategory as VALIDATE_CATEGORY } from "@/utils/validateCategory";
-import { FormCollapsibleAccordion } from "@/Shared/FormCollapsibleAccordion";
+import { useSuccess } from "@/hooks/useSuccess";
 
 export const NewCategory = () => {
 	const formRef = useRef<HTMLFormElement>(null);
+	const { success, setSuccess } = useSuccess();
 	const [submitClicked, setSubmitClicked] = useState<boolean>(false);
 
 	const { data: categories } = useSuspenseQuery(categoriesQueryOptions);
@@ -38,12 +39,13 @@ export const NewCategory = () => {
 
 	const HANDLE_SUBMIT = (e: FormEvent) => {
 		e.preventDefault();
-		const { newErrors, isSuccess } = VALIDATE_CATEGORY(formState);
+		const { newErrors, isSuccess: noError } = VALIDATE_CATEGORY(formState);
 		setErrors(newErrors);
+		setSuccess(noError);
 
-		if (!isSuccess) {
+		if (!success) {
 			setSubmitClicked(true);
-		} else {
+		} else if (success) {
 			CREATE_CATEGORY({
 				name,
 				identifier,
@@ -55,24 +57,22 @@ export const NewCategory = () => {
 				identifier,
 			});
 			setSubmitClicked(false);
-			console.log("Form is being sent!");
 		}
 	};
 
 	const navigate = useNavigate();
-
-	const SEND_FORM = () => formRef.current?.requestSubmit();
-
 	const GO_TO_CREATE_PART = () => {
 		const lastCategory = categories[categories.length - 1];
 		navigate({ to: `/options/category/${lastCategory.id}/newPart` });
 	};
+
+	const SEND_FORM = () => formRef.current?.requestSubmit();
 	return (
 		<>
-			<FormCollapsibleAccordion
-				formRef={formRef}
+			<form
+				ref={formRef}
 				onSubmit={HANDLE_SUBMIT}
-				height={isSuccess ? 400 : 330}
+				className={`formStyled h-[${isSuccess ? 400 : 330}px]`}
 			>
 				<legend className="font-bold text-[30px]">Nowa kategoria: </legend>
 				<NewCategoryFormFieldset
@@ -88,12 +88,16 @@ export const NewCategory = () => {
 					type="submit"
 				></TheButton>
 				{isSuccess && (
-					<div className="w-[100%] text-center">
+					<div className="w-[100%] text-center text-[20px]">
 						<p className="py-5">Kategoria {name} została dodana.</p>
-						<TheButton btnLabel="Dodaj opcję" onClick={GO_TO_CREATE_PART} />
+						<TheButton
+							type="button"
+							btnLabel="Dodaj opcję"
+							onClick={GO_TO_CREATE_PART}
+						/>
 					</div>
 				)}
-			</FormCollapsibleAccordion>
+			</form>
 		</>
 	);
 };

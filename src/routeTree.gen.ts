@@ -12,27 +12,27 @@
 
 import { Route as rootRoute } from "./routes/__root";
 import { Route as OrderImport } from "./routes/order";
-import { Route as OptionWrapperImport } from "./routes/_optionWrapper";
+import { Route as OptionsImport } from "./routes/options";
 import { Route as FormWrapperImport } from "./routes/_formWrapper";
 import { Route as SplatImport } from "./routes/$";
 import { Route as IndexImport } from "./routes/index";
+import { Route as OptionsIndexImport } from "./routes/options/index";
 import { Route as OrderOrderIdImport } from "./routes/order/$orderId";
-import { Route as OptionWrapperOptionsImport } from "./routes/_optionWrapper/options";
+import { Route as OptionsNewImport } from "./routes/options/new";
+import { Route as OptionsCategoryImport } from "./routes/options/category";
+import { Route as OptionsSplatImport } from "./routes/options/$";
 import { Route as FormWrapperCreatorImport } from "./routes/_formWrapper/creator";
-import { Route as OptionWrapperOptionsIndexImport } from "./routes/_optionWrapper/options/index";
 import { Route as FormWrapperCreatorIndexImport } from "./routes/_formWrapper/creator/index";
-import { Route as OptionWrapperOptionsNewImport } from "./routes/_optionWrapper/options/new";
-import { Route as OptionWrapperOptionsCategoryImport } from "./routes/_optionWrapper/options/category";
-import { Route as OptionWrapperOptionsSplatImport } from "./routes/_optionWrapper/options/$";
+import { Route as OptionsCategoryCategoryIdImport } from "./routes/options/category/$categoryId";
 import { Route as FormWrapperCreatorWrongplaceImport } from "./routes/_formWrapper/creator/wrongplace";
 import { Route as FormWrapperCreatorSuccessImport } from "./routes/_formWrapper/creator/success";
 import { Route as FormWrapperCreatorOrderdataImport } from "./routes/_formWrapper/creator/orderdata";
 import { Route as FormWrapperCreatorCategoryIdImport } from "./routes/_formWrapper/creator/$categoryId";
 import { Route as FormWrapperCreatorSplatImport } from "./routes/_formWrapper/creator/$";
-import { Route as OptionWrapperOptionsCategoryCategoryIdImport } from "./routes/_optionWrapper/options/category/$categoryId";
+import { Route as OptionsCategoryCategoryIdNewPartImport } from "./routes/options/category/$categoryId.newPart";
+import { Route as OptionsCategoryCategoryIdDeleteImport } from "./routes/options/category/$categoryId.delete";
+import { Route as OptionsCategoryCategoryIdPartIdImport } from "./routes/options/category/$categoryId.$partId";
 import { Route as FormWrapperCreatorSuccessOrderIdImport } from "./routes/_formWrapper/creator/success/$orderId";
-import { Route as OptionWrapperOptionsCategoryCategoryIdNewPartImport } from "./routes/_optionWrapper/options/category/$categoryId.newPart";
-import { Route as OptionWrapperOptionsCategoryCategoryIdDeleteImport } from "./routes/_optionWrapper/options/category/$categoryId.delete";
 import { Route as FormWrapperCreatorSuccessOrderIdDeleteImport } from "./routes/_formWrapper/creator/success/$orderId.delete";
 
 // Create/Update Routes
@@ -43,8 +43,9 @@ const OrderRoute = OrderImport.update({
 	getParentRoute: () => rootRoute,
 } as any);
 
-const OptionWrapperRoute = OptionWrapperImport.update({
-	id: "/_optionWrapper",
+const OptionsRoute = OptionsImport.update({
+	id: "/options",
+	path: "/options",
 	getParentRoute: () => rootRoute,
 } as any);
 
@@ -65,6 +66,12 @@ const IndexRoute = IndexImport.update({
 	getParentRoute: () => rootRoute,
 } as any);
 
+const OptionsIndexRoute = OptionsIndexImport.update({
+	id: "/",
+	path: "/",
+	getParentRoute: () => OptionsRoute,
+} as any);
+
 const OrderOrderIdRoute = OrderOrderIdImport.update({
 	id: "/$orderId",
 	path: "/$orderId",
@@ -73,10 +80,24 @@ const OrderOrderIdRoute = OrderOrderIdImport.update({
 	import("./routes/order/$orderId.lazy").then((d) => d.Route),
 );
 
-const OptionWrapperOptionsRoute = OptionWrapperOptionsImport.update({
-	id: "/options",
-	path: "/options",
-	getParentRoute: () => OptionWrapperRoute,
+const OptionsNewRoute = OptionsNewImport.update({
+	id: "/new",
+	path: "/new",
+	getParentRoute: () => OptionsRoute,
+} as any);
+
+const OptionsCategoryRoute = OptionsCategoryImport.update({
+	id: "/category",
+	path: "/category",
+	getParentRoute: () => OptionsRoute,
+} as any).lazy(() =>
+	import("./routes/options/category.lazy").then((d) => d.Route),
+);
+
+const OptionsSplatRoute = OptionsSplatImport.update({
+	id: "/$",
+	path: "/$",
+	getParentRoute: () => OptionsRoute,
 } as any);
 
 const FormWrapperCreatorRoute = FormWrapperCreatorImport.update({
@@ -85,40 +106,19 @@ const FormWrapperCreatorRoute = FormWrapperCreatorImport.update({
 	getParentRoute: () => FormWrapperRoute,
 } as any);
 
-const OptionWrapperOptionsIndexRoute = OptionWrapperOptionsIndexImport.update({
-	id: "/",
-	path: "/",
-	getParentRoute: () => OptionWrapperOptionsRoute,
-} as any);
-
 const FormWrapperCreatorIndexRoute = FormWrapperCreatorIndexImport.update({
 	id: "/",
 	path: "/",
 	getParentRoute: () => FormWrapperCreatorRoute,
 } as any);
 
-const OptionWrapperOptionsNewRoute = OptionWrapperOptionsNewImport.update({
-	id: "/new",
-	path: "/new",
-	getParentRoute: () => OptionWrapperOptionsRoute,
-} as any);
-
-const OptionWrapperOptionsCategoryRoute =
-	OptionWrapperOptionsCategoryImport.update({
-		id: "/category",
-		path: "/category",
-		getParentRoute: () => OptionWrapperOptionsRoute,
-	} as any).lazy(() =>
-		import("./routes/_optionWrapper/options/category.lazy").then(
-			(d) => d.Route,
-		),
-	);
-
-const OptionWrapperOptionsSplatRoute = OptionWrapperOptionsSplatImport.update({
-	id: "/$",
-	path: "/$",
-	getParentRoute: () => OptionWrapperOptionsRoute,
-} as any);
+const OptionsCategoryCategoryIdRoute = OptionsCategoryCategoryIdImport.update({
+	id: "/$categoryId",
+	path: "/$categoryId",
+	getParentRoute: () => OptionsCategoryRoute,
+} as any).lazy(() =>
+	import("./routes/options/category/$categoryId.lazy").then((d) => d.Route),
+);
 
 const FormWrapperCreatorWrongplaceRoute =
 	FormWrapperCreatorWrongplaceImport.update({
@@ -157,16 +157,26 @@ const FormWrapperCreatorSplatRoute = FormWrapperCreatorSplatImport.update({
 	getParentRoute: () => FormWrapperCreatorRoute,
 } as any);
 
-const OptionWrapperOptionsCategoryCategoryIdRoute =
-	OptionWrapperOptionsCategoryCategoryIdImport.update({
-		id: "/$categoryId",
-		path: "/$categoryId",
-		getParentRoute: () => OptionWrapperOptionsCategoryRoute,
-	} as any).lazy(() =>
-		import("./routes/_optionWrapper/options/category/$categoryId.lazy").then(
-			(d) => d.Route,
-		),
-	);
+const OptionsCategoryCategoryIdNewPartRoute =
+	OptionsCategoryCategoryIdNewPartImport.update({
+		id: "/newPart",
+		path: "/newPart",
+		getParentRoute: () => OptionsCategoryCategoryIdRoute,
+	} as any);
+
+const OptionsCategoryCategoryIdDeleteRoute =
+	OptionsCategoryCategoryIdDeleteImport.update({
+		id: "/delete",
+		path: "/delete",
+		getParentRoute: () => OptionsCategoryCategoryIdRoute,
+	} as any);
+
+const OptionsCategoryCategoryIdPartIdRoute =
+	OptionsCategoryCategoryIdPartIdImport.update({
+		id: "/$partId",
+		path: "/$partId",
+		getParentRoute: () => OptionsCategoryCategoryIdRoute,
+	} as any);
 
 const FormWrapperCreatorSuccessOrderIdRoute =
 	FormWrapperCreatorSuccessOrderIdImport.update({
@@ -178,20 +188,6 @@ const FormWrapperCreatorSuccessOrderIdRoute =
 			(d) => d.Route,
 		),
 	);
-
-const OptionWrapperOptionsCategoryCategoryIdNewPartRoute =
-	OptionWrapperOptionsCategoryCategoryIdNewPartImport.update({
-		id: "/newPart",
-		path: "/newPart",
-		getParentRoute: () => OptionWrapperOptionsCategoryCategoryIdRoute,
-	} as any);
-
-const OptionWrapperOptionsCategoryCategoryIdDeleteRoute =
-	OptionWrapperOptionsCategoryCategoryIdDeleteImport.update({
-		id: "/delete",
-		path: "/delete",
-		getParentRoute: () => OptionWrapperOptionsCategoryCategoryIdRoute,
-	} as any);
 
 const FormWrapperCreatorSuccessOrderIdDeleteRoute =
 	FormWrapperCreatorSuccessOrderIdDeleteImport.update({
@@ -229,11 +225,11 @@ declare module "@tanstack/react-router" {
 			preLoaderRoute: typeof FormWrapperImport;
 			parentRoute: typeof rootRoute;
 		};
-		"/_optionWrapper": {
-			id: "/_optionWrapper";
-			path: "";
-			fullPath: "";
-			preLoaderRoute: typeof OptionWrapperImport;
+		"/options": {
+			id: "/options";
+			path: "/options";
+			fullPath: "/options";
+			preLoaderRoute: typeof OptionsImport;
 			parentRoute: typeof rootRoute;
 		};
 		"/order": {
@@ -250,12 +246,26 @@ declare module "@tanstack/react-router" {
 			preLoaderRoute: typeof FormWrapperCreatorImport;
 			parentRoute: typeof FormWrapperImport;
 		};
-		"/_optionWrapper/options": {
-			id: "/_optionWrapper/options";
-			path: "/options";
-			fullPath: "/options";
-			preLoaderRoute: typeof OptionWrapperOptionsImport;
-			parentRoute: typeof OptionWrapperImport;
+		"/options/$": {
+			id: "/options/$";
+			path: "/$";
+			fullPath: "/options/$";
+			preLoaderRoute: typeof OptionsSplatImport;
+			parentRoute: typeof OptionsImport;
+		};
+		"/options/category": {
+			id: "/options/category";
+			path: "/category";
+			fullPath: "/options/category";
+			preLoaderRoute: typeof OptionsCategoryImport;
+			parentRoute: typeof OptionsImport;
+		};
+		"/options/new": {
+			id: "/options/new";
+			path: "/new";
+			fullPath: "/options/new";
+			preLoaderRoute: typeof OptionsNewImport;
+			parentRoute: typeof OptionsImport;
 		};
 		"/order/$orderId": {
 			id: "/order/$orderId";
@@ -263,6 +273,13 @@ declare module "@tanstack/react-router" {
 			fullPath: "/order/$orderId";
 			preLoaderRoute: typeof OrderOrderIdImport;
 			parentRoute: typeof OrderImport;
+		};
+		"/options/": {
+			id: "/options/";
+			path: "/";
+			fullPath: "/options/";
+			preLoaderRoute: typeof OptionsIndexImport;
+			parentRoute: typeof OptionsImport;
 		};
 		"/_formWrapper/creator/$": {
 			id: "/_formWrapper/creator/$";
@@ -299,26 +316,12 @@ declare module "@tanstack/react-router" {
 			preLoaderRoute: typeof FormWrapperCreatorWrongplaceImport;
 			parentRoute: typeof FormWrapperCreatorImport;
 		};
-		"/_optionWrapper/options/$": {
-			id: "/_optionWrapper/options/$";
-			path: "/$";
-			fullPath: "/options/$";
-			preLoaderRoute: typeof OptionWrapperOptionsSplatImport;
-			parentRoute: typeof OptionWrapperOptionsImport;
-		};
-		"/_optionWrapper/options/category": {
-			id: "/_optionWrapper/options/category";
-			path: "/category";
-			fullPath: "/options/category";
-			preLoaderRoute: typeof OptionWrapperOptionsCategoryImport;
-			parentRoute: typeof OptionWrapperOptionsImport;
-		};
-		"/_optionWrapper/options/new": {
-			id: "/_optionWrapper/options/new";
-			path: "/new";
-			fullPath: "/options/new";
-			preLoaderRoute: typeof OptionWrapperOptionsNewImport;
-			parentRoute: typeof OptionWrapperOptionsImport;
+		"/options/category/$categoryId": {
+			id: "/options/category/$categoryId";
+			path: "/$categoryId";
+			fullPath: "/options/category/$categoryId";
+			preLoaderRoute: typeof OptionsCategoryCategoryIdImport;
+			parentRoute: typeof OptionsCategoryImport;
 		};
 		"/_formWrapper/creator/": {
 			id: "/_formWrapper/creator/";
@@ -327,13 +330,6 @@ declare module "@tanstack/react-router" {
 			preLoaderRoute: typeof FormWrapperCreatorIndexImport;
 			parentRoute: typeof FormWrapperCreatorImport;
 		};
-		"/_optionWrapper/options/": {
-			id: "/_optionWrapper/options/";
-			path: "/";
-			fullPath: "/options/";
-			preLoaderRoute: typeof OptionWrapperOptionsIndexImport;
-			parentRoute: typeof OptionWrapperOptionsImport;
-		};
 		"/_formWrapper/creator/success/$orderId": {
 			id: "/_formWrapper/creator/success/$orderId";
 			path: "/$orderId";
@@ -341,12 +337,26 @@ declare module "@tanstack/react-router" {
 			preLoaderRoute: typeof FormWrapperCreatorSuccessOrderIdImport;
 			parentRoute: typeof FormWrapperCreatorSuccessImport;
 		};
-		"/_optionWrapper/options/category/$categoryId": {
-			id: "/_optionWrapper/options/category/$categoryId";
-			path: "/$categoryId";
-			fullPath: "/options/category/$categoryId";
-			preLoaderRoute: typeof OptionWrapperOptionsCategoryCategoryIdImport;
-			parentRoute: typeof OptionWrapperOptionsCategoryImport;
+		"/options/category/$categoryId/$partId": {
+			id: "/options/category/$categoryId/$partId";
+			path: "/$partId";
+			fullPath: "/options/category/$categoryId/$partId";
+			preLoaderRoute: typeof OptionsCategoryCategoryIdPartIdImport;
+			parentRoute: typeof OptionsCategoryCategoryIdImport;
+		};
+		"/options/category/$categoryId/delete": {
+			id: "/options/category/$categoryId/delete";
+			path: "/delete";
+			fullPath: "/options/category/$categoryId/delete";
+			preLoaderRoute: typeof OptionsCategoryCategoryIdDeleteImport;
+			parentRoute: typeof OptionsCategoryCategoryIdImport;
+		};
+		"/options/category/$categoryId/newPart": {
+			id: "/options/category/$categoryId/newPart";
+			path: "/newPart";
+			fullPath: "/options/category/$categoryId/newPart";
+			preLoaderRoute: typeof OptionsCategoryCategoryIdNewPartImport;
+			parentRoute: typeof OptionsCategoryCategoryIdImport;
 		};
 		"/_formWrapper/creator/success/$orderId/delete": {
 			id: "/_formWrapper/creator/success/$orderId/delete";
@@ -354,20 +364,6 @@ declare module "@tanstack/react-router" {
 			fullPath: "/creator/success/$orderId/delete";
 			preLoaderRoute: typeof FormWrapperCreatorSuccessOrderIdDeleteImport;
 			parentRoute: typeof FormWrapperCreatorSuccessOrderIdImport;
-		};
-		"/_optionWrapper/options/category/$categoryId/delete": {
-			id: "/_optionWrapper/options/category/$categoryId/delete";
-			path: "/delete";
-			fullPath: "/options/category/$categoryId/delete";
-			preLoaderRoute: typeof OptionWrapperOptionsCategoryCategoryIdDeleteImport;
-			parentRoute: typeof OptionWrapperOptionsCategoryCategoryIdImport;
-		};
-		"/_optionWrapper/options/category/$categoryId/newPart": {
-			id: "/_optionWrapper/options/category/$categoryId/newPart";
-			path: "/newPart";
-			fullPath: "/options/category/$categoryId/newPart";
-			preLoaderRoute: typeof OptionWrapperOptionsCategoryCategoryIdNewPartImport;
-			parentRoute: typeof OptionWrapperOptionsCategoryCategoryIdImport;
 		};
 	}
 }
@@ -437,68 +433,53 @@ const FormWrapperRouteWithChildren = FormWrapperRoute._addFileChildren(
 	FormWrapperRouteChildren,
 );
 
-interface OptionWrapperOptionsCategoryCategoryIdRouteChildren {
-	OptionWrapperOptionsCategoryCategoryIdDeleteRoute: typeof OptionWrapperOptionsCategoryCategoryIdDeleteRoute;
-	OptionWrapperOptionsCategoryCategoryIdNewPartRoute: typeof OptionWrapperOptionsCategoryCategoryIdNewPartRoute;
+interface OptionsCategoryCategoryIdRouteChildren {
+	OptionsCategoryCategoryIdPartIdRoute: typeof OptionsCategoryCategoryIdPartIdRoute;
+	OptionsCategoryCategoryIdDeleteRoute: typeof OptionsCategoryCategoryIdDeleteRoute;
+	OptionsCategoryCategoryIdNewPartRoute: typeof OptionsCategoryCategoryIdNewPartRoute;
 }
 
-const OptionWrapperOptionsCategoryCategoryIdRouteChildren: OptionWrapperOptionsCategoryCategoryIdRouteChildren =
+const OptionsCategoryCategoryIdRouteChildren: OptionsCategoryCategoryIdRouteChildren =
 	{
-		OptionWrapperOptionsCategoryCategoryIdDeleteRoute:
-			OptionWrapperOptionsCategoryCategoryIdDeleteRoute,
-		OptionWrapperOptionsCategoryCategoryIdNewPartRoute:
-			OptionWrapperOptionsCategoryCategoryIdNewPartRoute,
+		OptionsCategoryCategoryIdPartIdRoute: OptionsCategoryCategoryIdPartIdRoute,
+		OptionsCategoryCategoryIdDeleteRoute: OptionsCategoryCategoryIdDeleteRoute,
+		OptionsCategoryCategoryIdNewPartRoute:
+			OptionsCategoryCategoryIdNewPartRoute,
 	};
 
-const OptionWrapperOptionsCategoryCategoryIdRouteWithChildren =
-	OptionWrapperOptionsCategoryCategoryIdRoute._addFileChildren(
-		OptionWrapperOptionsCategoryCategoryIdRouteChildren,
+const OptionsCategoryCategoryIdRouteWithChildren =
+	OptionsCategoryCategoryIdRoute._addFileChildren(
+		OptionsCategoryCategoryIdRouteChildren,
 	);
 
-interface OptionWrapperOptionsCategoryRouteChildren {
-	OptionWrapperOptionsCategoryCategoryIdRoute: typeof OptionWrapperOptionsCategoryCategoryIdRouteWithChildren;
+interface OptionsCategoryRouteChildren {
+	OptionsCategoryCategoryIdRoute: typeof OptionsCategoryCategoryIdRouteWithChildren;
 }
 
-const OptionWrapperOptionsCategoryRouteChildren: OptionWrapperOptionsCategoryRouteChildren =
-	{
-		OptionWrapperOptionsCategoryCategoryIdRoute:
-			OptionWrapperOptionsCategoryCategoryIdRouteWithChildren,
-	};
-
-const OptionWrapperOptionsCategoryRouteWithChildren =
-	OptionWrapperOptionsCategoryRoute._addFileChildren(
-		OptionWrapperOptionsCategoryRouteChildren,
-	);
-
-interface OptionWrapperOptionsRouteChildren {
-	OptionWrapperOptionsSplatRoute: typeof OptionWrapperOptionsSplatRoute;
-	OptionWrapperOptionsCategoryRoute: typeof OptionWrapperOptionsCategoryRouteWithChildren;
-	OptionWrapperOptionsNewRoute: typeof OptionWrapperOptionsNewRoute;
-	OptionWrapperOptionsIndexRoute: typeof OptionWrapperOptionsIndexRoute;
-}
-
-const OptionWrapperOptionsRouteChildren: OptionWrapperOptionsRouteChildren = {
-	OptionWrapperOptionsSplatRoute: OptionWrapperOptionsSplatRoute,
-	OptionWrapperOptionsCategoryRoute:
-		OptionWrapperOptionsCategoryRouteWithChildren,
-	OptionWrapperOptionsNewRoute: OptionWrapperOptionsNewRoute,
-	OptionWrapperOptionsIndexRoute: OptionWrapperOptionsIndexRoute,
+const OptionsCategoryRouteChildren: OptionsCategoryRouteChildren = {
+	OptionsCategoryCategoryIdRoute: OptionsCategoryCategoryIdRouteWithChildren,
 };
 
-const OptionWrapperOptionsRouteWithChildren =
-	OptionWrapperOptionsRoute._addFileChildren(OptionWrapperOptionsRouteChildren);
-
-interface OptionWrapperRouteChildren {
-	OptionWrapperOptionsRoute: typeof OptionWrapperOptionsRouteWithChildren;
-}
-
-const OptionWrapperRouteChildren: OptionWrapperRouteChildren = {
-	OptionWrapperOptionsRoute: OptionWrapperOptionsRouteWithChildren,
-};
-
-const OptionWrapperRouteWithChildren = OptionWrapperRoute._addFileChildren(
-	OptionWrapperRouteChildren,
+const OptionsCategoryRouteWithChildren = OptionsCategoryRoute._addFileChildren(
+	OptionsCategoryRouteChildren,
 );
+
+interface OptionsRouteChildren {
+	OptionsSplatRoute: typeof OptionsSplatRoute;
+	OptionsCategoryRoute: typeof OptionsCategoryRouteWithChildren;
+	OptionsNewRoute: typeof OptionsNewRoute;
+	OptionsIndexRoute: typeof OptionsIndexRoute;
+}
+
+const OptionsRouteChildren: OptionsRouteChildren = {
+	OptionsSplatRoute: OptionsSplatRoute,
+	OptionsCategoryRoute: OptionsCategoryRouteWithChildren,
+	OptionsNewRoute: OptionsNewRoute,
+	OptionsIndexRoute: OptionsIndexRoute,
+};
+
+const OptionsRouteWithChildren =
+	OptionsRoute._addFileChildren(OptionsRouteChildren);
 
 interface OrderRouteChildren {
 	OrderOrderIdRoute: typeof OrderOrderIdRoute;
@@ -513,49 +494,51 @@ const OrderRouteWithChildren = OrderRoute._addFileChildren(OrderRouteChildren);
 export interface FileRoutesByFullPath {
 	"/": typeof IndexRoute;
 	"/$": typeof SplatRoute;
-	"": typeof OptionWrapperRouteWithChildren;
+	"": typeof FormWrapperRouteWithChildren;
+	"/options": typeof OptionsRouteWithChildren;
 	"/order": typeof OrderRouteWithChildren;
 	"/creator": typeof FormWrapperCreatorRouteWithChildren;
-	"/options": typeof OptionWrapperOptionsRouteWithChildren;
+	"/options/$": typeof OptionsSplatRoute;
+	"/options/category": typeof OptionsCategoryRouteWithChildren;
+	"/options/new": typeof OptionsNewRoute;
 	"/order/$orderId": typeof OrderOrderIdRoute;
+	"/options/": typeof OptionsIndexRoute;
 	"/creator/$": typeof FormWrapperCreatorSplatRoute;
 	"/creator/$categoryId": typeof FormWrapperCreatorCategoryIdRoute;
 	"/creator/orderdata": typeof FormWrapperCreatorOrderdataRoute;
 	"/creator/success": typeof FormWrapperCreatorSuccessRouteWithChildren;
 	"/creator/wrongplace": typeof FormWrapperCreatorWrongplaceRoute;
-	"/options/$": typeof OptionWrapperOptionsSplatRoute;
-	"/options/category": typeof OptionWrapperOptionsCategoryRouteWithChildren;
-	"/options/new": typeof OptionWrapperOptionsNewRoute;
+	"/options/category/$categoryId": typeof OptionsCategoryCategoryIdRouteWithChildren;
 	"/creator/": typeof FormWrapperCreatorIndexRoute;
-	"/options/": typeof OptionWrapperOptionsIndexRoute;
 	"/creator/success/$orderId": typeof FormWrapperCreatorSuccessOrderIdRouteWithChildren;
-	"/options/category/$categoryId": typeof OptionWrapperOptionsCategoryCategoryIdRouteWithChildren;
+	"/options/category/$categoryId/$partId": typeof OptionsCategoryCategoryIdPartIdRoute;
+	"/options/category/$categoryId/delete": typeof OptionsCategoryCategoryIdDeleteRoute;
+	"/options/category/$categoryId/newPart": typeof OptionsCategoryCategoryIdNewPartRoute;
 	"/creator/success/$orderId/delete": typeof FormWrapperCreatorSuccessOrderIdDeleteRoute;
-	"/options/category/$categoryId/delete": typeof OptionWrapperOptionsCategoryCategoryIdDeleteRoute;
-	"/options/category/$categoryId/newPart": typeof OptionWrapperOptionsCategoryCategoryIdNewPartRoute;
 }
 
 export interface FileRoutesByTo {
 	"/": typeof IndexRoute;
 	"/$": typeof SplatRoute;
-	"": typeof OptionWrapperRouteWithChildren;
+	"": typeof FormWrapperRouteWithChildren;
 	"/order": typeof OrderRouteWithChildren;
+	"/options/$": typeof OptionsSplatRoute;
+	"/options/category": typeof OptionsCategoryRouteWithChildren;
+	"/options/new": typeof OptionsNewRoute;
 	"/order/$orderId": typeof OrderOrderIdRoute;
+	"/options": typeof OptionsIndexRoute;
 	"/creator/$": typeof FormWrapperCreatorSplatRoute;
 	"/creator/$categoryId": typeof FormWrapperCreatorCategoryIdRoute;
 	"/creator/orderdata": typeof FormWrapperCreatorOrderdataRoute;
 	"/creator/success": typeof FormWrapperCreatorSuccessRouteWithChildren;
 	"/creator/wrongplace": typeof FormWrapperCreatorWrongplaceRoute;
-	"/options/$": typeof OptionWrapperOptionsSplatRoute;
-	"/options/category": typeof OptionWrapperOptionsCategoryRouteWithChildren;
-	"/options/new": typeof OptionWrapperOptionsNewRoute;
+	"/options/category/$categoryId": typeof OptionsCategoryCategoryIdRouteWithChildren;
 	"/creator": typeof FormWrapperCreatorIndexRoute;
-	"/options": typeof OptionWrapperOptionsIndexRoute;
 	"/creator/success/$orderId": typeof FormWrapperCreatorSuccessOrderIdRouteWithChildren;
-	"/options/category/$categoryId": typeof OptionWrapperOptionsCategoryCategoryIdRouteWithChildren;
+	"/options/category/$categoryId/$partId": typeof OptionsCategoryCategoryIdPartIdRoute;
+	"/options/category/$categoryId/delete": typeof OptionsCategoryCategoryIdDeleteRoute;
+	"/options/category/$categoryId/newPart": typeof OptionsCategoryCategoryIdNewPartRoute;
 	"/creator/success/$orderId/delete": typeof FormWrapperCreatorSuccessOrderIdDeleteRoute;
-	"/options/category/$categoryId/delete": typeof OptionWrapperOptionsCategoryCategoryIdDeleteRoute;
-	"/options/category/$categoryId/newPart": typeof OptionWrapperOptionsCategoryCategoryIdNewPartRoute;
 }
 
 export interface FileRoutesById {
@@ -563,26 +546,26 @@ export interface FileRoutesById {
 	"/": typeof IndexRoute;
 	"/$": typeof SplatRoute;
 	"/_formWrapper": typeof FormWrapperRouteWithChildren;
-	"/_optionWrapper": typeof OptionWrapperRouteWithChildren;
+	"/options": typeof OptionsRouteWithChildren;
 	"/order": typeof OrderRouteWithChildren;
 	"/_formWrapper/creator": typeof FormWrapperCreatorRouteWithChildren;
-	"/_optionWrapper/options": typeof OptionWrapperOptionsRouteWithChildren;
+	"/options/$": typeof OptionsSplatRoute;
+	"/options/category": typeof OptionsCategoryRouteWithChildren;
+	"/options/new": typeof OptionsNewRoute;
 	"/order/$orderId": typeof OrderOrderIdRoute;
+	"/options/": typeof OptionsIndexRoute;
 	"/_formWrapper/creator/$": typeof FormWrapperCreatorSplatRoute;
 	"/_formWrapper/creator/$categoryId": typeof FormWrapperCreatorCategoryIdRoute;
 	"/_formWrapper/creator/orderdata": typeof FormWrapperCreatorOrderdataRoute;
 	"/_formWrapper/creator/success": typeof FormWrapperCreatorSuccessRouteWithChildren;
 	"/_formWrapper/creator/wrongplace": typeof FormWrapperCreatorWrongplaceRoute;
-	"/_optionWrapper/options/$": typeof OptionWrapperOptionsSplatRoute;
-	"/_optionWrapper/options/category": typeof OptionWrapperOptionsCategoryRouteWithChildren;
-	"/_optionWrapper/options/new": typeof OptionWrapperOptionsNewRoute;
+	"/options/category/$categoryId": typeof OptionsCategoryCategoryIdRouteWithChildren;
 	"/_formWrapper/creator/": typeof FormWrapperCreatorIndexRoute;
-	"/_optionWrapper/options/": typeof OptionWrapperOptionsIndexRoute;
 	"/_formWrapper/creator/success/$orderId": typeof FormWrapperCreatorSuccessOrderIdRouteWithChildren;
-	"/_optionWrapper/options/category/$categoryId": typeof OptionWrapperOptionsCategoryCategoryIdRouteWithChildren;
+	"/options/category/$categoryId/$partId": typeof OptionsCategoryCategoryIdPartIdRoute;
+	"/options/category/$categoryId/delete": typeof OptionsCategoryCategoryIdDeleteRoute;
+	"/options/category/$categoryId/newPart": typeof OptionsCategoryCategoryIdNewPartRoute;
 	"/_formWrapper/creator/success/$orderId/delete": typeof FormWrapperCreatorSuccessOrderIdDeleteRoute;
-	"/_optionWrapper/options/category/$categoryId/delete": typeof OptionWrapperOptionsCategoryCategoryIdDeleteRoute;
-	"/_optionWrapper/options/category/$categoryId/newPart": typeof OptionWrapperOptionsCategoryCategoryIdNewPartRoute;
 }
 
 export interface FileRouteTypes {
@@ -591,72 +574,74 @@ export interface FileRouteTypes {
 		| "/"
 		| "/$"
 		| ""
+		| "/options"
 		| "/order"
 		| "/creator"
-		| "/options"
+		| "/options/$"
+		| "/options/category"
+		| "/options/new"
 		| "/order/$orderId"
+		| "/options/"
 		| "/creator/$"
 		| "/creator/$categoryId"
 		| "/creator/orderdata"
 		| "/creator/success"
 		| "/creator/wrongplace"
-		| "/options/$"
-		| "/options/category"
-		| "/options/new"
-		| "/creator/"
-		| "/options/"
-		| "/creator/success/$orderId"
 		| "/options/category/$categoryId"
-		| "/creator/success/$orderId/delete"
+		| "/creator/"
+		| "/creator/success/$orderId"
+		| "/options/category/$categoryId/$partId"
 		| "/options/category/$categoryId/delete"
-		| "/options/category/$categoryId/newPart";
+		| "/options/category/$categoryId/newPart"
+		| "/creator/success/$orderId/delete";
 	fileRoutesByTo: FileRoutesByTo;
 	to:
 		| "/"
 		| "/$"
 		| ""
 		| "/order"
+		| "/options/$"
+		| "/options/category"
+		| "/options/new"
 		| "/order/$orderId"
+		| "/options"
 		| "/creator/$"
 		| "/creator/$categoryId"
 		| "/creator/orderdata"
 		| "/creator/success"
 		| "/creator/wrongplace"
-		| "/options/$"
-		| "/options/category"
-		| "/options/new"
-		| "/creator"
-		| "/options"
-		| "/creator/success/$orderId"
 		| "/options/category/$categoryId"
-		| "/creator/success/$orderId/delete"
+		| "/creator"
+		| "/creator/success/$orderId"
+		| "/options/category/$categoryId/$partId"
 		| "/options/category/$categoryId/delete"
-		| "/options/category/$categoryId/newPart";
+		| "/options/category/$categoryId/newPart"
+		| "/creator/success/$orderId/delete";
 	id:
 		| "__root__"
 		| "/"
 		| "/$"
 		| "/_formWrapper"
-		| "/_optionWrapper"
+		| "/options"
 		| "/order"
 		| "/_formWrapper/creator"
-		| "/_optionWrapper/options"
+		| "/options/$"
+		| "/options/category"
+		| "/options/new"
 		| "/order/$orderId"
+		| "/options/"
 		| "/_formWrapper/creator/$"
 		| "/_formWrapper/creator/$categoryId"
 		| "/_formWrapper/creator/orderdata"
 		| "/_formWrapper/creator/success"
 		| "/_formWrapper/creator/wrongplace"
-		| "/_optionWrapper/options/$"
-		| "/_optionWrapper/options/category"
-		| "/_optionWrapper/options/new"
+		| "/options/category/$categoryId"
 		| "/_formWrapper/creator/"
-		| "/_optionWrapper/options/"
 		| "/_formWrapper/creator/success/$orderId"
-		| "/_optionWrapper/options/category/$categoryId"
-		| "/_formWrapper/creator/success/$orderId/delete"
-		| "/_optionWrapper/options/category/$categoryId/delete"
-		| "/_optionWrapper/options/category/$categoryId/newPart";
+		| "/options/category/$categoryId/$partId"
+		| "/options/category/$categoryId/delete"
+		| "/options/category/$categoryId/newPart"
+		| "/_formWrapper/creator/success/$orderId/delete";
 	fileRoutesById: FileRoutesById;
 }
 
@@ -664,7 +649,7 @@ export interface RootRouteChildren {
 	IndexRoute: typeof IndexRoute;
 	SplatRoute: typeof SplatRoute;
 	FormWrapperRoute: typeof FormWrapperRouteWithChildren;
-	OptionWrapperRoute: typeof OptionWrapperRouteWithChildren;
+	OptionsRoute: typeof OptionsRouteWithChildren;
 	OrderRoute: typeof OrderRouteWithChildren;
 }
 
@@ -672,7 +657,7 @@ const rootRouteChildren: RootRouteChildren = {
 	IndexRoute: IndexRoute,
 	SplatRoute: SplatRoute,
 	FormWrapperRoute: FormWrapperRouteWithChildren,
-	OptionWrapperRoute: OptionWrapperRouteWithChildren,
+	OptionsRoute: OptionsRouteWithChildren,
 	OrderRoute: OrderRouteWithChildren,
 };
 
@@ -689,7 +674,7 @@ export const routeTree = rootRoute
         "/",
         "/$",
         "/_formWrapper",
-        "/_optionWrapper",
+        "/options",
         "/order"
       ]
     },
@@ -705,10 +690,13 @@ export const routeTree = rootRoute
         "/_formWrapper/creator"
       ]
     },
-    "/_optionWrapper": {
-      "filePath": "_optionWrapper.tsx",
+    "/options": {
+      "filePath": "options.tsx",
       "children": [
-        "/_optionWrapper/options"
+        "/options/$",
+        "/options/category",
+        "/options/new",
+        "/options/"
       ]
     },
     "/order": {
@@ -729,19 +717,28 @@ export const routeTree = rootRoute
         "/_formWrapper/creator/"
       ]
     },
-    "/_optionWrapper/options": {
-      "filePath": "_optionWrapper/options.tsx",
-      "parent": "/_optionWrapper",
+    "/options/$": {
+      "filePath": "options/$.tsx",
+      "parent": "/options"
+    },
+    "/options/category": {
+      "filePath": "options/category.tsx",
+      "parent": "/options",
       "children": [
-        "/_optionWrapper/options/$",
-        "/_optionWrapper/options/category",
-        "/_optionWrapper/options/new",
-        "/_optionWrapper/options/"
+        "/options/category/$categoryId"
       ]
+    },
+    "/options/new": {
+      "filePath": "options/new.tsx",
+      "parent": "/options"
     },
     "/order/$orderId": {
       "filePath": "order/$orderId.tsx",
       "parent": "/order"
+    },
+    "/options/": {
+      "filePath": "options/index.tsx",
+      "parent": "/options"
     },
     "/_formWrapper/creator/$": {
       "filePath": "_formWrapper/creator/$.tsx",
@@ -766,28 +763,18 @@ export const routeTree = rootRoute
       "filePath": "_formWrapper/creator/wrongplace.tsx",
       "parent": "/_formWrapper/creator"
     },
-    "/_optionWrapper/options/$": {
-      "filePath": "_optionWrapper/options/$.tsx",
-      "parent": "/_optionWrapper/options"
-    },
-    "/_optionWrapper/options/category": {
-      "filePath": "_optionWrapper/options/category.tsx",
-      "parent": "/_optionWrapper/options",
+    "/options/category/$categoryId": {
+      "filePath": "options/category/$categoryId.tsx",
+      "parent": "/options/category",
       "children": [
-        "/_optionWrapper/options/category/$categoryId"
+        "/options/category/$categoryId/$partId",
+        "/options/category/$categoryId/delete",
+        "/options/category/$categoryId/newPart"
       ]
-    },
-    "/_optionWrapper/options/new": {
-      "filePath": "_optionWrapper/options/new.tsx",
-      "parent": "/_optionWrapper/options"
     },
     "/_formWrapper/creator/": {
       "filePath": "_formWrapper/creator/index.tsx",
       "parent": "/_formWrapper/creator"
-    },
-    "/_optionWrapper/options/": {
-      "filePath": "_optionWrapper/options/index.tsx",
-      "parent": "/_optionWrapper/options"
     },
     "/_formWrapper/creator/success/$orderId": {
       "filePath": "_formWrapper/creator/success/$orderId.tsx",
@@ -796,25 +783,21 @@ export const routeTree = rootRoute
         "/_formWrapper/creator/success/$orderId/delete"
       ]
     },
-    "/_optionWrapper/options/category/$categoryId": {
-      "filePath": "_optionWrapper/options/category/$categoryId.tsx",
-      "parent": "/_optionWrapper/options/category",
-      "children": [
-        "/_optionWrapper/options/category/$categoryId/delete",
-        "/_optionWrapper/options/category/$categoryId/newPart"
-      ]
+    "/options/category/$categoryId/$partId": {
+      "filePath": "options/category/$categoryId.$partId.tsx",
+      "parent": "/options/category/$categoryId"
+    },
+    "/options/category/$categoryId/delete": {
+      "filePath": "options/category/$categoryId.delete.tsx",
+      "parent": "/options/category/$categoryId"
+    },
+    "/options/category/$categoryId/newPart": {
+      "filePath": "options/category/$categoryId.newPart.tsx",
+      "parent": "/options/category/$categoryId"
     },
     "/_formWrapper/creator/success/$orderId/delete": {
       "filePath": "_formWrapper/creator/success/$orderId.delete.tsx",
       "parent": "/_formWrapper/creator/success/$orderId"
-    },
-    "/_optionWrapper/options/category/$categoryId/delete": {
-      "filePath": "_optionWrapper/options/category/$categoryId.delete.tsx",
-      "parent": "/_optionWrapper/options/category/$categoryId"
-    },
-    "/_optionWrapper/options/category/$categoryId/newPart": {
-      "filePath": "_optionWrapper/options/category/$categoryId.newPart.tsx",
-      "parent": "/_optionWrapper/options/category/$categoryId"
     }
   }
 }

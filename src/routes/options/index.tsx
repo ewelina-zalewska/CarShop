@@ -4,12 +4,12 @@ import { OptionsSelectDiv } from "@/Shared/OptionsSelectDiv";
 const Options = () => {
 	return (
 		<div>
-			<OptionsSelectDiv />
+			<OptionsSelectDiv title="Wybierz jedną z opcji menu." />
 			<Outlet />
 		</div>
 	);
 };
 
-export const Route = createFileRoute("/_optionWrapper/options/")({
+export const Route = createFileRoute("/options/")({
 	component: Options,
 });

@@ -23,13 +23,13 @@ export const TheSuccessDeleteOrder = () => {
 	};
 
 	if (isLoading) return <p>Loading...</p>;
+	if (error) return <p>{error.message} </p>;
 	return (
 		<div>
 			<p>
 				Czy na pewno chcesz usunąć zamównienie nr <strong>{order.id}</strong>?
 			</p>
 			<TheButton btnLabel="USUŃ" onClick={HANDLE_DELETE} />
-			{error && <p>{error.message}</p>}
 		</div>
 	);
 };

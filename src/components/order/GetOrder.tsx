@@ -8,7 +8,6 @@ import { useInput } from "@/hooks/useInput";
 import { validateOrder as VALIDATE_ORDER } from "@/utils/validateOrder";
 import { MenuCollapsibleAccordion } from "@/Shared/MenuCollapsibleAccordion";
 import { MainCollapsibleAccordion } from "@/Shared/MainCollapsibleAccordion";
-import { FormCollapsibleAccordion } from "@/Shared/FormCollapsibleAccordion";
 import { TheInput } from "@/Shared/TheInput";
 import { TheButton } from "@/Shared/TheButton";
 import { LinkToPage } from "@/Shared/LinkToPage";
@@ -20,7 +19,6 @@ export const GetOrder = () => {
 			order: state.order,
 		})),
 	);
-
 	const { data: orders } = useSuspenseQuery(ordersQueryOptions);
 	const orderId = useInput("");
 
@@ -31,6 +29,7 @@ export const GetOrder = () => {
 		if (!submitClicked) return;
 		const timer = setTimeout(() => {
 			setSubmitClicked(false);
+			orderId.setValue("");
 		}, 2000);
 		return () => {
 			clearTimeout(timer);
@@ -51,8 +50,6 @@ export const GetOrder = () => {
 		if (checkOrder.noFullfilled || !checkOrder.isOrder) return;
 		else {
 			navigate({ to: `/order/${orderId.value}` });
-			setSubmitClicked(false);
-			orderId.setValue("");
 		}
 	};
 
@@ -64,9 +61,13 @@ export const GetOrder = () => {
 				<LinkToPage title="Do strony głównej" link="/" />
 			</MenuCollapsibleAccordion>
 			<MainCollapsibleAccordion>
-				<FormCollapsibleAccordion formRef={formRef} onSubmit={HANDLE_SUBMIT}>
+				<form
+					ref={formRef}
+					onSubmit={HANDLE_SUBMIT}
+					className={`formStyled h-[150px]`}
+				>
 					<TheInput
-						legend="Twój numer zamówienia:"
+						label="Twój numer zamówienia:"
 						type="text"
 						name="orderNo"
 						placeholder="Numer zamówienia"
@@ -83,7 +84,7 @@ export const GetOrder = () => {
 						disabled={showedOrder}
 						type="submit"
 					></TheButton>
-				</FormCollapsibleAccordion>
+				</form>
 				<Outlet />
 			</MainCollapsibleAccordion>
 		</>

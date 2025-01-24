@@ -1,5 +1,5 @@
 ﻿import { createLazyFileRoute } from "@tanstack/react-router";
-import { SingleCategory } from "@/components/createForm/categories/SingleCategory";
+import { CategoryList } from "@/components/createForm/categories/CategoryList";
 
 const Loading = () => {
 	return (
@@ -16,11 +16,8 @@ const Error = () => {
 		</div>
 	);
 };
-
-export const Route = createLazyFileRoute(
-	"/_optionWrapper/options/category/$categoryId",
-)({
-	component: SingleCategory,
+export const Route = createLazyFileRoute("/options/category")({
+	component: CategoryList,
 	pendingComponent: Loading,
 	errorComponent: Error,
 });

@@ -11,7 +11,7 @@ export const NewPartFormFieldset = ({
 	return (
 		<>
 			<TheInput
-				legend="Nazwa"
+				label="Nazwa"
 				type="text"
 				name="name"
 				placeholder="nazwa opcji"
@@ -20,7 +20,7 @@ export const NewPartFormFieldset = ({
 			/>
 			<FieldErrors errors={errors.name} />
 			<TheInput
-				legend="dentyfikator"
+				label="Identyfikator"
 				type="text"
 				name="partId"
 				placeholder="identyfikator opcji"
@@ -30,7 +30,7 @@ export const NewPartFormFieldset = ({
 			<FieldErrors errors={errors.partId} />
 
 			<TheInput
-				legend="Cena"
+				label="Cena"
 				type="number"
 				name="price"
 				placeholder="cena"

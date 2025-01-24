@@ -19,8 +19,7 @@ export const SingleCategory = () => {
 	const ADD_PART = () =>
 		navigate({ to: `/options/category/${data.id}/newPart` });
 
-	if (isPending)
-		return <p>Loading...Loading...Loading...Loading...Loading...Loading...</p>;
+	if (isPending) return <p>Loading....</p>;
 	if (error) return <p>{error.message} </p>;
 	return (
 		<>

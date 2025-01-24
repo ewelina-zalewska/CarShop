@@ -1,5 +1,5 @@
 ﻿import { Route as CreateImport } from "@/routes/_formWrapper/creator";
-import { Route as OptionsImport } from "@/routes/_optionWrapper/options";
+import { Route as OptionsImport } from "@/routes/options";
 import { Route as OrderImport } from "@/routes/order";
 import { Link, Outlet } from "@tanstack/react-router";
 import { MenuCollapsibleAccordion } from "@/Shared/MenuCollapsibleAccordion";
@@ -23,7 +23,7 @@ export const HomePage = () => {
 				</ul>
 			</MenuCollapsibleAccordion>
 			<MainCollapsibleAccordion>
-				<OptionsSelectDiv />
+				<OptionsSelectDiv title="Wybierz jedną z opcji menu." />
 				<Outlet />
 			</MainCollapsibleAccordion>
 		</>

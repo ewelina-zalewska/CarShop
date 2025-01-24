@@ -1,5 +1,5 @@
 ﻿import { createFileRoute } from "@tanstack/react-router";
-import { NewPart } from "@/components/createForm/parts/NewPart";
+import { categoriesQueryOptions } from "@/queries/categoriesQuery";
 
 const Loading = () => {
 	return (
@@ -16,11 +16,11 @@ const Error = () => {
 		</div>
 	);
 };
-
-export const Route = createFileRoute(
-	"/_optionWrapper/options/category/$categoryId/newPart",
-)({
-	component: NewPart,
+export const Route = createFileRoute("/options/category")({
+	loader: ({ context }) => {
+		const { queryClient } = context;
+		return queryClient.ensureQueryData(categoriesQueryOptions);
+	},
 	pendingComponent: Loading,
 	errorComponent: Error,
 });

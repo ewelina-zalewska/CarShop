@@ -21,9 +21,11 @@ export const FormCategory = () => {
 	const selectedParts = useSelectedParts();
 
 	const { data: categories } = useSuspenseQuery(categoriesQueryOptions);
-	const { data: category, isPending } = useSuspenseQuery(
-		categoryQueryOptions(categoryId),
-	);
+	const {
+		data: category,
+		isPending,
+		error,
+	} = useSuspenseQuery(categoryQueryOptions(categoryId));
 
 	const { form, setFormData } = useOrderStore(
 		useShallow((state) => ({
@@ -59,12 +61,13 @@ export const FormCategory = () => {
 	const NEXT_STEP = () => navigate({ to: "/creator/orderdata" });
 
 	if (isPending) return <p>Loading...</p>;
+	if (error) return <p>{error.message} </p>;
+
 	if (localStorage.getItem("form") !== "started")
 		return <p>Go back and click the button START.</p>;
 	return (
 		<>
 			<TheStepper categories={categories} selectedCategory={categoryId} />
-
 			<div>
 				<fieldset>
 					<legend>{category.name}</legend>

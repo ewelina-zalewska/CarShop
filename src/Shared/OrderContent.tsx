@@ -13,6 +13,8 @@ export const OrderContent = ({ orderId }: OrderContent) => {
 	} = useSuspenseQuery(orderQueryOptions(orderId));
 
 	if (isLoading) return <p>Loading...</p>;
+	if (error) return <p>{error.message} </p>;
+
 	return (
 		<>
 			<h2 className="text-center">Treść zamówienia:</h2>
@@ -34,7 +36,6 @@ export const OrderContent = ({ orderId }: OrderContent) => {
 					))}
 				</li>
 			</ul>
-			{error && <p>{error?.message}</p>}
 		</>
 	);
 };
