@@ -1,37 +1,29 @@
-﻿import { useState } from "react";
-import { PartsResponse } from "@/types";
+﻿import { PartsResponse } from "@/types";
+import { useOptionsCategoryId } from "@/hooks/useOprionsCategoryId";
 import { useDeletePartMutation } from "@/mutations/useDeletePartMutation";
-import { DeletePart } from "@/components/createForm/parts/DeletePart";
 import { TheButton } from "@/Shared/TheButton";
+import { useNavigate } from "@tanstack/react-router";
 
 type optionProps = {
 	option: PartsResponse;
 };
 
 export const SinglePart = ({ option }: optionProps) => {
+	const categoryId = useOptionsCategoryId();
 	const { error, isPending } = useDeletePartMutation();
 
-	const [deleted, setDeleted] = useState<"delete" | "none">("none");
+	const navigate = useNavigate();
+	const DELETE_PART = () =>
+		navigate({ to: `/options/category/${categoryId}/${option.id}` });
 
-	const TOGGLE_DELETE_MODE = () =>
-		setDeleted((prevDeleted) => (prevDeleted === "delete" ? "none" : "delete"));
-
-	if (isPending)
-		return <p>Loading...Loading...Loading...Loading...Loading...Loading...</p>;
+	if (isPending) return <p>Loading...</p>;
 	if (error) return <p>{error.message} </p>;
 	return (
 		<>
 			<div className="flex justify-between pb-2 pr-1 mt-1">
 				<p>{option.name}</p>
-				<TheButton
-					btnLabel="Usuń"
-					disabled={isPending}
-					onClick={TOGGLE_DELETE_MODE}
-				/>
+				<TheButton btnLabel="Usuń" disabled={isPending} onClick={DELETE_PART} />
 			</div>
-			{deleted === "delete" && (
-				<DeletePart onCancel={TOGGLE_DELETE_MODE} deletedPart={option} />
-			)}
 		</>
 	);
 };
