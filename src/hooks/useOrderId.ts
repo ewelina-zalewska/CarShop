@@ -1,6 +1,6 @@
 ﻿import { getRouteApi } from "@tanstack/react-router";
 
-const categoryRoute = getRouteApi("/_formWrapper/creator/success/$orderId");
+const categoryRoute = getRouteApi("/creator/success/$orderId");
 
 export const useOrderId = () => {
 	const { orderId } = categoryRoute.useParams();

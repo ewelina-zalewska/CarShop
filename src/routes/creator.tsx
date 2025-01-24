@@ -27,7 +27,7 @@ const Error = () => {
 	);
 };
 
-export const Route = createFileRoute("/_formWrapper/creator")({
+export const Route = createFileRoute("/creator")({
 	loader: ({ context }) => {
 		const { queryClient } = context;
 		return queryClient.ensureQueryData(categoriesQueryOptions);

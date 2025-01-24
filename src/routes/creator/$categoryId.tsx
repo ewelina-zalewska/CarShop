@@ -1,7 +1,7 @@
 ﻿import { categoryQueryOptions } from "@/queries/categoryQuery";
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/_formWrapper/creator/$categoryId")({
+export const Route = createFileRoute("/creator/$categoryId")({
 	loader: ({ context, params }) => {
 		const { queryClient } = context;
 		const { categoryId } = params;

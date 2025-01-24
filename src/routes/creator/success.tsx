@@ -8,6 +8,6 @@ const CreateIndex = () => {
 	);
 };
 
-export const Route = createFileRoute("/_formWrapper/creator/")({
+export const Route = createFileRoute("/creator/success")({
 	component: CreateIndex,
 });

@@ -1,6 +1,6 @@
 ﻿import { getRouteApi } from "@tanstack/react-router";
 
-const categoryRoute = getRouteApi("/_formWrapper/creator/$categoryId");
+const categoryRoute = getRouteApi("/creator/$categoryId");
 
 export const useCreatorCategoryId = () => {
 	const { categoryId } = categoryRoute.useParams();

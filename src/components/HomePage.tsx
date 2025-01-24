@@ -1,4 +1,4 @@
-﻿import { Route as CreateImport } from "@/routes/_formWrapper/creator";
+﻿import { Route as CreateImport } from "@/routes/creator";
 import { Route as OptionsImport } from "@/routes/options";
 import { Route as OrderImport } from "@/routes/order";
 import { Link, Outlet } from "@tanstack/react-router";

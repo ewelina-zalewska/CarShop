@@ -8,6 +8,6 @@ const WrongPlace = () => {
 	);
 };
 
-export const Route = createFileRoute("/_formWrapper/creator/wrongplace")({
+export const Route = createFileRoute("/creator/wrongplace")({
 	component: WrongPlace,
 });
