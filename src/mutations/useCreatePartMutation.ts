@@ -14,7 +14,7 @@ export const useCreatePartMutation = () => {
 			}),
 		onSuccess: () => {
 			queryClient.refetchQueries({
-				queryKey: ["category"],
+				queryKey: ["categories"],
 			});
 		},
 	});

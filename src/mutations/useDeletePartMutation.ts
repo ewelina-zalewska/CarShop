@@ -11,10 +11,13 @@ export const useDeletePartMutation = () => {
 			apiCall<PartsResponse>(`parts/${id}`, {
 				method: "DELETE",
 			}),
-		onSuccess: () => {
-			queryClient.refetchQueries({
-				queryKey: ["category"],
-			});
+		onSuccess: (deletedPart: PartsResponse) => {
+			queryClient.setQueryData<PartsResponse[]>(
+				["parts"],
+				(oldPartsResponse) => {
+					return oldPartsResponse?.filter((part) => part.id !== deletedPart.id);
+				},
+			);
 		},
 	});
 };
