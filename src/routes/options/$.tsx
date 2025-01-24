@@ -1,6 +1,6 @@
 ﻿import { createFileRoute } from "@tanstack/react-router";
-import { WrongOptionsPlace } from "@/components/wrongPlaces/WrongOptionsPlace";
+import { WrongPlace } from "@/Shared/WrongPlace";
 
 export const Route = createFileRoute("/options/$")({
-	component: WrongOptionsPlace,
+	component: WrongPlace,
 });

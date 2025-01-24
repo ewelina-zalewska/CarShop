@@ -1,5 +1,5 @@
 ﻿import { createFileRoute } from "@tanstack/react-router";
-import { WrongPlace } from "@/components/wrongPlaces/WrongPlace";
+import { WrongPlace } from "@/Shared/WrongPlace";
 
 export const Route = createFileRoute("/$")({
 	component: WrongPlace,

@@ -10,14 +10,12 @@ type optionProps = {
 
 export const SinglePart = ({ option }: optionProps) => {
 	const categoryId = useOptionsCategoryId();
-	const { error, isPending } = useDeletePartMutation();
+	const { isPending } = useDeletePartMutation();
 
 	const navigate = useNavigate();
 	const DELETE_PART = () =>
 		navigate({ to: `/options/category/${categoryId}/${option.id}` });
 
-	if (isPending) return <p>Loading...</p>;
-	if (error) return <p>{error.message} </p>;
 	return (
 		<>
 			<div className="flex justify-between pb-2 pr-1 mt-1">

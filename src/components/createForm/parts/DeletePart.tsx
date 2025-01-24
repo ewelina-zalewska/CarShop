@@ -11,12 +11,7 @@ const categoryRoute = getRouteApi("/options/category/$categoryId/$partId");
 
 export const DeletePart = () => {
 	const { categoryId, partId } = categoryRoute.useParams();
-	const {
-		mutate: DELETE_PART,
-		error,
-		isSuccess,
-		isPending,
-	} = useDeletePartMutation();
+	const { mutate: DELETE_PART, isSuccess } = useDeletePartMutation();
 	const { data: parts } = useSuspenseQuery(partsQueryOptions);
 
 	const HANDLE_DELETE = (e: FormEvent) => {
@@ -34,8 +29,6 @@ export const DeletePart = () => {
 		navigate({ to: `/options/category` });
 	}, [isSuccess]);
 
-	if (isPending) return <p>Loading...</p>;
-	if (error) return <p>{error.message} </p>;
 	return (
 		<>
 			<ModalBox width={500} height={200}>

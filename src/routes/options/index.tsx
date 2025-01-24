@@ -3,10 +3,10 @@ import { OptionsSelectDiv } from "@/Shared/OptionsSelectDiv";
 
 const Options = () => {
 	return (
-		<div>
+		<>
 			<OptionsSelectDiv title="Wybierz jedną z opcji menu." />
 			<Outlet />
-		</div>
+		</>
 	);
 };
 

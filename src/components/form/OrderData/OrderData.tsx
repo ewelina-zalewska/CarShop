@@ -21,7 +21,7 @@ export const OrderData = () => {
 	const { success, setSuccess } = useSuccess();
 	const [submitClicked, setSubmitClicked] = useState<boolean>(false);
 
-	const { mutate: CREATE_ORDER, isPending, error } = useCreateOrderMutation();
+	const { mutate: CREATE_ORDER, isPending } = useCreateOrderMutation();
 
 	const [formState, setFormState, HANDLE_CHANGE] = useForm<OrderDataForm>({
 		firstName: "",
@@ -74,9 +74,6 @@ export const OrderData = () => {
 	};
 	const navigate = useNavigate();
 	const SEND_FORM = () => formRef.current?.requestSubmit();
-
-	if (isPending) return <p>Loading...</p>;
-	if (error) return <p>{error.message} </p>;
 
 	if (localStorage.getItem("form") !== "started")
 		return <p>Cofnij się i naciśnij na START.</p>;

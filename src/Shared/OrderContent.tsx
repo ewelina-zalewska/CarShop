@@ -6,14 +6,7 @@ type OrderContent = {
 };
 
 export const OrderContent = ({ orderId }: OrderContent) => {
-	const {
-		data: order,
-		isLoading,
-		error,
-	} = useSuspenseQuery(orderQueryOptions(orderId));
-
-	if (isLoading) return <p>Loading...</p>;
-	if (error) return <p>{error.message} </p>;
+	const { data: order } = useSuspenseQuery(orderQueryOptions(orderId));
 
 	return (
 		<>

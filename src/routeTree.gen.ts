@@ -52,7 +52,7 @@ const CreatorRoute = CreatorImport.update({
 	id: "/creator",
 	path: "/creator",
 	getParentRoute: () => rootRoute,
-} as any);
+} as any).lazy(() => import("./routes/creator.lazy").then((d) => d.Route));
 
 const SplatRoute = SplatImport.update({
 	id: "/$",
@@ -166,14 +166,22 @@ const OptionsCategoryCategoryIdDeleteRoute =
 		id: "/delete",
 		path: "/delete",
 		getParentRoute: () => OptionsCategoryCategoryIdRoute,
-	} as any);
+	} as any).lazy(() =>
+		import("./routes/options/category/$categoryId.delete.lazy").then(
+			(d) => d.Route,
+		),
+	);
 
 const OptionsCategoryCategoryIdPartIdRoute =
 	OptionsCategoryCategoryIdPartIdImport.update({
 		id: "/$partId",
 		path: "/$partId",
 		getParentRoute: () => OptionsCategoryCategoryIdRoute,
-	} as any);
+	} as any).lazy(() =>
+		import("./routes/options/category/$categoryId.$partId.lazy").then(
+			(d) => d.Route,
+		),
+	);
 
 const CreatorSuccessOrderIdDeleteRoute =
 	CreatorSuccessOrderIdDeleteImport.update({

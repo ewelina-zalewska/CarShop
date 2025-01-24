@@ -1,26 +1,13 @@
 ﻿import { createFileRoute } from "@tanstack/react-router";
 import { categoriesQueryOptions } from "@/queries/categoriesQuery";
+import { DataLoading } from "@/Shared/DataLoading";
+import { TheError } from "@/Shared/TheError";
 
-const Loading = () => {
-	return (
-		<div>
-			<h1>Loading data...</h1>
-		</div>
-	);
-};
-
-const Error = () => {
-	return (
-		<div>
-			<h1>Error</h1>
-		</div>
-	);
-};
 export const Route = createFileRoute("/options/category")({
 	loader: ({ context }) => {
 		const { queryClient } = context;
 		return queryClient.ensureQueryData(categoriesQueryOptions);
 	},
-	pendingComponent: Loading,
-	errorComponent: Error,
+	pendingComponent: DataLoading,
+	errorComponent: TheError,
 });

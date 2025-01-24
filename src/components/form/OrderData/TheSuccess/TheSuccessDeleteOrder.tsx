@@ -7,11 +7,7 @@ import { useOrderId } from "@/hooks/useOrderId";
 
 export const TheSuccessDeleteOrder = () => {
 	const orderId = useOrderId();
-	const {
-		data: order,
-		isLoading,
-		error,
-	} = useSuspenseQuery(orderQueryOptions(orderId));
+	const { data: order } = useSuspenseQuery(orderQueryOptions(orderId));
 
 	const { mutate: DELETE_ORDER } = useDeleteOrderMutation();
 	const navigate = useNavigate();
@@ -22,8 +18,6 @@ export const TheSuccessDeleteOrder = () => {
 		navigate({ to: `/creator/success` });
 	};
 
-	if (isLoading) return <p>Loading...</p>;
-	if (error) return <p>{error.message} </p>;
 	return (
 		<div>
 			<p>

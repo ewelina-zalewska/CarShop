@@ -16,12 +16,7 @@ export const DeleteCategory = () => {
 	const { data: categories } = useSuspenseQuery(categoriesQueryOptions);
 	const { data: parts } = useSuspenseQuery(partsQueryOptions);
 
-	const {
-		mutate: DELETE_CATEGORY,
-		isPending,
-		isSuccess,
-		error,
-	} = useDeleteCategoryMutation();
+	const { mutate: DELETE_CATEGORY, isSuccess } = useDeleteCategoryMutation();
 	const { mutate: DELETE_PARTS } = useDeleteMultiplePartsMutation();
 	const { mutate: UPDATE_CATEGORY_POSITION } =
 		useUpdateMultipleCategoriesMutation();
@@ -51,8 +46,6 @@ export const DeleteCategory = () => {
 		navigate({ to: "/options/category" });
 	}, [isSuccess]);
 
-	if (isPending) return <p>Loading...</p>;
-	if (error) return <p>{error.message} </p>;
 	return (
 		<>
 			<ModalBox width={500} height={300}>

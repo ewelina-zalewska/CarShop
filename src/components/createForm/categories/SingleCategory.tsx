@@ -2,7 +2,6 @@
 import { Outlet, useNavigate } from "@tanstack/react-router";
 import { categoryQueryOptions } from "@/queries/categoryQuery";
 import { useOptionsCategoryId } from "@/hooks/useOprionsCategoryId";
-import { useDeleteCategoryMutation } from "@/mutations/useDeleteCategoryMutation";
 import { SinglePart } from "@/components/createForm/parts/SinglePart";
 import { ModalBox } from "@/Shared/ModalBox";
 import { LinkToPage } from "@/Shared/LinkToPage";
@@ -11,7 +10,6 @@ import { TheButton } from "@/Shared/TheButton";
 export const SingleCategory = () => {
 	const categoryId = useOptionsCategoryId();
 	const { data } = useSuspenseQuery(categoryQueryOptions(categoryId));
-	const { error, isPending } = useDeleteCategoryMutation();
 
 	const navigate = useNavigate();
 	const DELETE_CATEGORY = () =>
@@ -19,8 +17,6 @@ export const SingleCategory = () => {
 	const ADD_PART = () =>
 		navigate({ to: `/options/category/${data.id}/newPart` });
 
-	if (isPending) return <p>Loading....</p>;
-	if (error) return <p>{error.message} </p>;
 	return (
 		<>
 			<ModalBox width={500} height={600}>

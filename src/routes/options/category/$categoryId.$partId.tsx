@@ -1,22 +1,7 @@
 ﻿import { createFileRoute } from "@tanstack/react-router";
-import { DeletePart } from "@/components/createForm/parts/DeletePart";
 import { partQueryOptions } from "@/queries/partQuery";
-
-const Loading = () => {
-	return (
-		<div>
-			<h1>Loading data...</h1>
-		</div>
-	);
-};
-
-const Error = () => {
-	return (
-		<div>
-			<h1>Error</h1>
-		</div>
-	);
-};
+import { DataLoading } from "@/Shared/DataLoading";
+import { TheError } from "@/Shared/TheError";
 
 export const Route = createFileRoute("/options/category/$categoryId/$partId")({
 	loader: ({ context, params }) => {
@@ -24,7 +9,6 @@ export const Route = createFileRoute("/options/category/$categoryId/$partId")({
 		const { partId } = params;
 		return queryClient.ensureQueryData(partQueryOptions(partId));
 	},
-	component: DeletePart,
-	pendingComponent: Loading,
-	errorComponent: Error,
+	pendingComponent: DataLoading,
+	errorComponent: TheError,
 });

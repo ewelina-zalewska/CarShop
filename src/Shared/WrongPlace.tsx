@@ -1,10 +1,8 @@
 ﻿import { useEffect } from "react";
 import { Outlet, useNavigate } from "@tanstack/react-router";
-import { Route } from "@/routes/$";
 
 export const WrongPlace = () => {
-	const intervalTime: number = 3000;
-	const { _splat } = Route.useParams();
+	const intervalTime: number = 4000;
 
 	const navigate = useNavigate();
 
@@ -19,9 +17,10 @@ export const WrongPlace = () => {
 	}, [navigate]);
 
 	return (
-		<div>
-			<h1>This is a wrong place, you need go to back.</h1>
-			<p>You tried to load {_splat} </p>
+		<div className="absolute top-0 left-0 w-full h-screen bg-theme-translucent-color">
+			<h3 className="text-[30px] text-theme-error-color text-center mt-[40vh]">
+				To jest zły adres. Wróć do strony głównej
+			</h3>
 			<Outlet />
 		</div>
 	);

@@ -1,11 +1,7 @@
 ﻿import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 const CreateIndex = () => {
-	return (
-		<div>
-			<Outlet />
-		</div>
-	);
+	return <Outlet />;
 };
 
 export const Route = createFileRoute("/creator/success")({

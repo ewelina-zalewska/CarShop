@@ -25,6 +25,7 @@ export default {
 			"theme-additional-color": "var(--additional-color)",
 			"theme-light-gray-color": "var(--light-gray-color)",
 			"theme-dark-gray-color": "var(--dark-gray-color)",
+			"theme-pink-color": "var(--pink-color)",
 			"theme-transparent-color": "var(--transparent-color)",
 			"theme-translucent-color": "var(--translucent-color)",
 		},

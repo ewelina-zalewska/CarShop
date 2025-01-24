@@ -1,15 +1,12 @@
 ﻿import { createFileRoute } from "@tanstack/react-router";
 import { OptionsList } from "@/components/createForm/OptionsList";
+import { PageNotFound } from "@/Shared/PageNotFound";
+import { DataLoading } from "@/Shared/DataLoading";
+import { TheError } from "@/Shared/TheError";
 
-const OptionNotFound = () => {
-	return (
-		<div>
-			<p>Something went wrong.</p>
-			<p>Option not found</p>
-		</div>
-	);
-};
 export const Route = createFileRoute("/options")({
 	component: OptionsList,
-	notFoundComponent: OptionNotFound,
+	notFoundComponent: () => PageNotFound("Nie znaleziono strony"),
+	pendingComponent: DataLoading,
+	errorComponent: TheError,
 });
