@@ -72,7 +72,7 @@ export const NewCategory = () => {
 			<form
 				ref={formRef}
 				onSubmit={HANDLE_SUBMIT}
-				className={`formStyled h-[${isSuccess ? 400 : 330}px]`}
+				className={`formStyled mb-10  ${isSuccess ? "h-[400px]" : "h-[330px]"}`}
 			>
 				<legend className="font-bold text-[30px]">Nowa kategoria: </legend>
 				<NewCategoryFormFieldset

@@ -7,7 +7,7 @@ export const CategoryList = () => {
 
 	return (
 		<>
-			<div className=" lg:h-[600px] lg:self-center lg:ml-[200px] w-full text-theme-lightblue-color pt-[20px] lg:pt-[100px]">
+			<div className="lg:h-[600px] lg:self-center lg:ml-[200px] w-full text-theme-lightblue-color pt-[20px] lg:pt-[100px]">
 				<h1 className="text-[30px] text-center">LISTA KATEGORII</h1>
 				<Outlet />
 				<ul className="flex flex-wrap mt-[70px] lg:ml-[50px] gap-[20px] justify-center">

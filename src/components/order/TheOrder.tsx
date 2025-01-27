@@ -29,9 +29,11 @@ export const TheOrder = () => {
 	}, []);
 
 	return (
-		<ModalBox width={300} height={550}>
-			<OrderContent orderId={orderId} />
-			<LinkToPage title="Powrót" link="/order" />
-		</ModalBox>
+		<>
+			<ModalBox width={400} height={550}>
+				<OrderContent orderId={orderId} />
+				<LinkToPage title="Powrót" link="/order" />
+			</ModalBox>
+		</>
 	);
 };

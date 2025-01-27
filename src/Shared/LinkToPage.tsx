@@ -15,7 +15,7 @@ export const LinkToPage = ({ title, link }: LinkToPageProps) => {
 			<img
 				src={leftArrow}
 				className="w-[30px] h-5 self-center "
-				alt="left arrow"
+				alt="strzałka w lewo"
 			/>
 			<p>{title}</p>
 		</Link>
