@@ -1,9 +1,9 @@
 ﻿import { useDeleteOrderMutation } from "@/mutations/useDeleteOrderMutation";
 import { orderQueryOptions } from "@/queries/orderQuery";
-import { TheButton } from "@/Shared/TheButton";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useOrderId } from "@/hooks/useOrderId";
+import { DeleteConfirmation } from "@/Shared/DeleteConfirmation";
 
 export const TheSuccessDeleteOrder = () => {
 	const orderId = useOrderId();
@@ -15,15 +15,17 @@ export const TheSuccessDeleteOrder = () => {
 	const HANDLE_DELETE = () => {
 		DELETE_ORDER(orderId);
 		localStorage.clear();
-		navigate({ to: `/creator/success` });
+		navigate({ to: `/creator/deletedorder` });
 	};
 
 	return (
-		<div>
-			<p>
-				Czy na pewno chcesz usunąć zamównienie nr <strong>{order.id}</strong>?
-			</p>
-			<TheButton btnLabel="USUŃ" onClick={HANDLE_DELETE} />
-		</div>
+		<DeleteConfirmation
+			width={500}
+			height={300}
+			item="zamówienie"
+			name={order.id}
+			link={`/creator/success/${order.id}`}
+			onClick={HANDLE_DELETE}
+		/>
 	);
 };

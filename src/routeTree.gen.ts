@@ -25,6 +25,7 @@ import { Route as OptionsSplatImport } from "./routes/options/$";
 import { Route as CreatorWrongplaceImport } from "./routes/creator/wrongplace";
 import { Route as CreatorSuccessImport } from "./routes/creator/success";
 import { Route as CreatorOrderdataImport } from "./routes/creator/orderdata";
+import { Route as CreatorDeletedorderImport } from "./routes/creator/deletedorder";
 import { Route as CreatorCategoryIdImport } from "./routes/creator/$categoryId";
 import { Route as CreatorSplatImport } from "./routes/creator/$";
 import { Route as OptionsCategoryCategoryIdImport } from "./routes/options/category/$categoryId";
@@ -121,6 +122,12 @@ const CreatorSuccessRoute = CreatorSuccessImport.update({
 const CreatorOrderdataRoute = CreatorOrderdataImport.update({
 	id: "/orderdata",
 	path: "/orderdata",
+	getParentRoute: () => CreatorRoute,
+} as any);
+
+const CreatorDeletedorderRoute = CreatorDeletedorderImport.update({
+	id: "/deletedorder",
+	path: "/deletedorder",
 	getParentRoute: () => CreatorRoute,
 } as any);
 
@@ -245,6 +252,13 @@ declare module "@tanstack/react-router" {
 			path: "/$categoryId";
 			fullPath: "/creator/$categoryId";
 			preLoaderRoute: typeof CreatorCategoryIdImport;
+			parentRoute: typeof CreatorImport;
+		};
+		"/creator/deletedorder": {
+			id: "/creator/deletedorder";
+			path: "/deletedorder";
+			fullPath: "/creator/deletedorder";
+			preLoaderRoute: typeof CreatorDeletedorderImport;
 			parentRoute: typeof CreatorImport;
 		};
 		"/creator/orderdata": {
@@ -385,6 +399,7 @@ const CreatorSuccessRouteWithChildren = CreatorSuccessRoute._addFileChildren(
 interface CreatorRouteChildren {
 	CreatorSplatRoute: typeof CreatorSplatRoute;
 	CreatorCategoryIdRoute: typeof CreatorCategoryIdRoute;
+	CreatorDeletedorderRoute: typeof CreatorDeletedorderRoute;
 	CreatorOrderdataRoute: typeof CreatorOrderdataRoute;
 	CreatorSuccessRoute: typeof CreatorSuccessRouteWithChildren;
 	CreatorWrongplaceRoute: typeof CreatorWrongplaceRoute;
@@ -394,6 +409,7 @@ interface CreatorRouteChildren {
 const CreatorRouteChildren: CreatorRouteChildren = {
 	CreatorSplatRoute: CreatorSplatRoute,
 	CreatorCategoryIdRoute: CreatorCategoryIdRoute,
+	CreatorDeletedorderRoute: CreatorDeletedorderRoute,
 	CreatorOrderdataRoute: CreatorOrderdataRoute,
 	CreatorSuccessRoute: CreatorSuccessRouteWithChildren,
 	CreatorWrongplaceRoute: CreatorWrongplaceRoute,
@@ -469,6 +485,7 @@ export interface FileRoutesByFullPath {
 	"/order": typeof OrderRouteWithChildren;
 	"/creator/$": typeof CreatorSplatRoute;
 	"/creator/$categoryId": typeof CreatorCategoryIdRoute;
+	"/creator/deletedorder": typeof CreatorDeletedorderRoute;
 	"/creator/orderdata": typeof CreatorOrderdataRoute;
 	"/creator/success": typeof CreatorSuccessRouteWithChildren;
 	"/creator/wrongplace": typeof CreatorWrongplaceRoute;
@@ -492,6 +509,7 @@ export interface FileRoutesByTo {
 	"/order": typeof OrderRouteWithChildren;
 	"/creator/$": typeof CreatorSplatRoute;
 	"/creator/$categoryId": typeof CreatorCategoryIdRoute;
+	"/creator/deletedorder": typeof CreatorDeletedorderRoute;
 	"/creator/orderdata": typeof CreatorOrderdataRoute;
 	"/creator/success": typeof CreatorSuccessRouteWithChildren;
 	"/creator/wrongplace": typeof CreatorWrongplaceRoute;
@@ -518,6 +536,7 @@ export interface FileRoutesById {
 	"/order": typeof OrderRouteWithChildren;
 	"/creator/$": typeof CreatorSplatRoute;
 	"/creator/$categoryId": typeof CreatorCategoryIdRoute;
+	"/creator/deletedorder": typeof CreatorDeletedorderRoute;
 	"/creator/orderdata": typeof CreatorOrderdataRoute;
 	"/creator/success": typeof CreatorSuccessRouteWithChildren;
 	"/creator/wrongplace": typeof CreatorWrongplaceRoute;
@@ -545,6 +564,7 @@ export interface FileRouteTypes {
 		| "/order"
 		| "/creator/$"
 		| "/creator/$categoryId"
+		| "/creator/deletedorder"
 		| "/creator/orderdata"
 		| "/creator/success"
 		| "/creator/wrongplace"
@@ -567,6 +587,7 @@ export interface FileRouteTypes {
 		| "/order"
 		| "/creator/$"
 		| "/creator/$categoryId"
+		| "/creator/deletedorder"
 		| "/creator/orderdata"
 		| "/creator/success"
 		| "/creator/wrongplace"
@@ -591,6 +612,7 @@ export interface FileRouteTypes {
 		| "/order"
 		| "/creator/$"
 		| "/creator/$categoryId"
+		| "/creator/deletedorder"
 		| "/creator/orderdata"
 		| "/creator/success"
 		| "/creator/wrongplace"
@@ -653,6 +675,7 @@ export const routeTree = rootRoute
       "children": [
         "/creator/$",
         "/creator/$categoryId",
+        "/creator/deletedorder",
         "/creator/orderdata",
         "/creator/success",
         "/creator/wrongplace",
@@ -680,6 +703,10 @@ export const routeTree = rootRoute
     },
     "/creator/$categoryId": {
       "filePath": "creator/$categoryId.tsx",
+      "parent": "/creator"
+    },
+    "/creator/deletedorder": {
+      "filePath": "creator/deletedorder.tsx",
       "parent": "/creator"
     },
     "/creator/orderdata": {

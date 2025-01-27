@@ -7,9 +7,7 @@ import { useOptionsCategoryId } from "@/hooks/useOprionsCategoryId";
 import { useDeleteCategoryMutation } from "@/mutations/useDeleteCategoryMutation";
 import { useDeleteMultiplePartsMutation } from "@/mutations/useDeleteMultiplePartsMutation";
 import { useUpdateMultipleCategoriesMutation } from "@/mutations/useUpdateMultipleCategoriesMutation";
-import { TheButton } from "@/Shared/TheButton";
-import { ModalBox } from "@/Shared/ModalBox";
-import { LinkToPage } from "@/Shared/LinkToPage";
+import { DeleteConfirmation } from "@/Shared/DeleteConfirmation";
 
 export const DeleteCategory = () => {
 	const categoryId = useOptionsCategoryId();
@@ -36,9 +34,9 @@ export const DeleteCategory = () => {
 		UPDATE_CATEGORY_POSITION(categoriesIds);
 	};
 
-	const categoryName = categories
-		?.filter((category) => category.id === categoryId)
-		.map((category) => category.name);
+	const categoryName = categories?.find(
+		(category) => category.id === categoryId,
+	);
 
 	const navigate = useNavigate();
 	useEffect(() => {
@@ -46,15 +44,15 @@ export const DeleteCategory = () => {
 		navigate({ to: "/options/category" });
 	}, [isSuccess]);
 
+	if (!categoryName) return;
 	return (
-		<>
-			<ModalBox width={500} height={300}>
-				<p>
-					Czy na pewno chcesz usunąć kategorię <strong>{categoryName}</strong>?
-				</p>
-				<TheButton btnLabel="Usuń" onClick={HANDLE_DELETE} />
-				<LinkToPage link="/options/category/$categoryId" title="Powrót" />
-			</ModalBox>
-		</>
+		<DeleteConfirmation
+			width={500}
+			height={300}
+			item="kategorię"
+			name={categoryName.name}
+			link="/options/category/$categoryId"
+			onClick={HANDLE_DELETE}
+		/>
 	);
 };

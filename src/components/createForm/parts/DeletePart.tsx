@@ -3,9 +3,7 @@ import { partsQueryOptions } from "@/queries/partsQuery";
 import { getRouteApi, useNavigate } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useDeletePartMutation } from "@/mutations/useDeletePartMutation";
-import { TheButton } from "@/Shared/TheButton";
-import { ModalBox } from "@/Shared/ModalBox";
-import { LinkToPage } from "@/Shared/LinkToPage";
+import { DeleteConfirmation } from "@/Shared/DeleteConfirmation";
 
 const categoryRoute = getRouteApi("/options/category/$categoryId/$partId");
 
@@ -19,9 +17,7 @@ export const DeletePart = () => {
 		DELETE_PART(partId);
 	};
 
-	const partName = parts
-		?.filter((part) => part.id === partId)
-		.map((part) => part.name);
+	const partName = parts?.find((part) => part.id === partId);
 
 	const navigate = useNavigate();
 	useEffect(() => {
@@ -29,15 +25,15 @@ export const DeletePart = () => {
 		navigate({ to: `/options/category` });
 	}, [isSuccess]);
 
+	if (!partName) return;
 	return (
-		<>
-			<ModalBox width={500} height={200}>
-				<p>
-					Czy na pewno chcesz usunąć opcję <strong>{partName}</strong>?
-				</p>
-				<TheButton btnLabel="Usuń" onClick={HANDLE_DELETE} />
-				<LinkToPage link={`/options/category/${categoryId}`} title="Powrót" />
-			</ModalBox>
-		</>
+		<DeleteConfirmation
+			width={500}
+			height={200}
+			item="opcję "
+			name={partName.name}
+			link={`/options/category/${categoryId}`}
+			onClick={HANDLE_DELETE}
+		/>
 	);
 };
