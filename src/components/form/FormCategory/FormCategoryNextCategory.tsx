@@ -1,6 +1,6 @@
-﻿import { Link } from "@tanstack/react-router";
-import { CategoryResponse, useChangeCategoryProps } from "@/types";
+﻿import { CategoryResponse, useChangeCategoryProps } from "@/types";
 import { useEffect, useState } from "react";
+import { FormLink } from "@/Shared/FormLink";
 
 export const FormCategoryNextCategory = ({
 	category,
@@ -19,14 +19,10 @@ export const FormCategoryNextCategory = ({
 	return (
 		<>
 			{category.position !== categories.length && (
-				<Link
-					to="/creator/$categoryId"
-					params={{
-						categoryId: nextCategory ? nextCategory.id : categoryId,
-					}}
-				>
-					DALEJ
-				</Link>
+				<FormLink
+					title="Dalej"
+					link={`/creator/${nextCategory ? nextCategory.id : categoryId}`}
+				/>
 			)}
 		</>
 	);

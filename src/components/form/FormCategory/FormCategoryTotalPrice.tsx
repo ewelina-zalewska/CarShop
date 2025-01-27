@@ -6,9 +6,9 @@ export const FormCategoryTotalPrice = () => {
 	const totalPrice = useTotalPrice(selectedParts);
 
 	return (
-		<h3>
+		<h3 className="pt-5 text-[19px]">
 			Wartość zamówienia:
-			{totalPrice}
+			<strong> {totalPrice}</strong>
 		</h3>
 	);
 };

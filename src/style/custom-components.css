@@ -1,0 +1,44 @@
+﻿li {
+	@apply mb-[10px];
+}
+li:hover {
+	@apply font-bold;
+}
+
+.disabledElement {
+	@apply bg-theme-light-gray-color text-theme-dark-gray-color shadow-disabledElement;
+}
+
+.formStyled {
+	@apply mt-[50px] lg:ml-[25%] lg:mt-[8%]  lg:w-[350px] flex flex-col justify-between items-center text-theme-light-color text-[20px];
+}
+
+input[type="radio"] {
+	@apply bg-theme-light-color rounded-[20px] cursor-pointer inline-block h-[20px] mr-[10px] relative w-[20px] appearance-none;
+	box-shadow:
+		inset 0 1px 0 hsla(227, 58%, 46%, 0.8),
+		0 0 0 1px hsla(247, 90%, 12%, 0.6),
+		0 2px 1px hsla(257, 92%, 10%, 0.6),
+		0 4px 3px hsla(250, 92%, 5%, 0.4),
+		0 6px 6px hsla(260, 94%, 26%, 0.2),
+		0 9px 6px hsla(255, 89%, 18%, 0.2);
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	outline: none;
+}
+input[type="radio"]:after {
+	@apply bg-theme-dark-color rounded-[20px] content-[""] block relative translate-x-[40%] translate-y-[10%];
+	height: var(--radio-size);
+	left: calc(var(--radio-size) / 2);
+	top: calc(var(--radio-size) / 2);
+	width: var(--radio-size);
+}
+input[type="radio"]:checked:after {
+	@apply bg-theme-dark-pink-color;
+	box-shadow:
+		inset 0 0 0 1px hsla(318, 65%, 85%, 0.4),
+		inset 0 2px 2px hsla(317, 20%, 64%, 0.4),
+		0 1px 1px hsla(315, 100%, 98%, 0.8),
+		0 0 2px 2px hsla(315, 40%, 96%, 0.4);
+}

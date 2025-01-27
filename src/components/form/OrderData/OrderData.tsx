@@ -11,6 +11,7 @@ import { validateOrderData as VALIDATE_ORDER_DATA } from "@/utils/validateOrderD
 import { OrderDataFormFieldset } from "@/components/form/OrderData/OrderDataFormFieldset";
 import { OrderDataSummary } from "@/components/form/OrderData/OrderDataSummary";
 import { TheButton } from "@/Shared/TheButton";
+import { WrongPlace } from "@/Shared/WrongPlace";
 
 export const OrderData = () => {
 	const selectedParts = useSelectedParts();
@@ -58,7 +59,9 @@ export const OrderData = () => {
 				lastName,
 				email,
 				value: totalPrice,
-				details: selectedParts.map((part) => `${part.category} ${part.name}`),
+				details: selectedParts.map(
+					(part) => `${part.category} :  ${part.name}`,
+				),
 			});
 
 			setFormState({
@@ -68,33 +71,41 @@ export const OrderData = () => {
 			});
 			localStorage.clear();
 			setSubmitClicked(false);
-			navigate({ to: `/creator/success/${orderNo}` });
 			localStorage.setItem("form", "send");
+			navigate({ to: `/creator/success/${orderNo}` });
 		}
 	};
 	const navigate = useNavigate();
 	const SEND_FORM = () => formRef.current?.requestSubmit();
 
-	if (localStorage.getItem("form") !== "started")
-		return <p>Cofnij się i naciśnij na START.</p>;
+	const wrongPlace = localStorage.getItem("form") !== "started";
+
 	return (
 		<>
-			<div>
-				<OrderDataSummary />
-				<form ref={formRef} onSubmit={HANDLE_SUBMIT}>
-					<OrderDataFormFieldset
-						onChange={HANDLE_CHANGE}
-						formState={formState}
-						errors={errors}
-					/>
-					<TheButton
-						onClick={SEND_FORM}
-						disabled={isPending}
-						btnLabel="WYŚLIJ"
-						type="submit"
-					></TheButton>
-				</form>
-			</div>
+			{wrongPlace ? (
+				<WrongPlace />
+			) : (
+				<div className="lg:h-[600px] lg:ml-[200px] w-full text-theme-lightblue-color flex lg:flex-row flex-col justify-center items-center gap-10 h-[800px] pb-[100px] mt-[50px]">
+					<OrderDataSummary />
+					<form
+						ref={formRef}
+						onSubmit={HANDLE_SUBMIT}
+						className="min-w-[250px] w-[25%] flex flex-col justify-evenly items-center"
+					>
+						<OrderDataFormFieldset
+							onChange={HANDLE_CHANGE}
+							formState={formState}
+							errors={errors}
+						/>
+						<TheButton
+							onClick={SEND_FORM}
+							disabled={isPending}
+							btnLabel="Wyślij"
+							type="submit"
+						></TheButton>
+					</form>
+				</div>
+			)}
 		</>
 	);
 };

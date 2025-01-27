@@ -6,6 +6,7 @@ import { categoriesQueryOptions } from "@/queries/categoriesQuery";
 import { categoryQueryOptions } from "@/queries/categoryQuery";
 import { useOrderStore } from "@/store/useOrderStore";
 import { useCreatorCategoryId } from "@/hooks/useCreatorCategoryId";
+import { useGetStarted } from "@/hooks/useGetStarted";
 import { useSelectedPart } from "@/hooks/useSelectedPart";
 import { useInput } from "@/hooks/useInput";
 import { useSelectedParts } from "@/hooks/useSelectedParts";
@@ -15,8 +16,10 @@ import { FormCategoryNextCategory } from "@/components/form/FormCategory/FormCat
 import { FormCategoryTotalPrice } from "@/components/form/FormCategory/FormCategoryTotalPrice";
 import { TheButton } from "@/Shared/TheButton";
 import { TheRadio } from "@/Shared/TheRadio";
+import { WrongPlace } from "@/Shared/WrongPlace";
 
 export const FormCategory = () => {
+	const { isStarted, HANDLE_STOP } = useGetStarted();
 	const categoryId = useCreatorCategoryId();
 	const selectedParts = useSelectedParts();
 
@@ -56,52 +59,69 @@ export const FormCategory = () => {
 	const navigate = useNavigate();
 	const NEXT_STEP = () => navigate({ to: "/creator/orderdata" });
 
-	if (localStorage.getItem("form") !== "started")
-		return <p>Go back and click the button START.</p>;
+	const wrongPlace = localStorage.getItem("form") !== "started";
+
 	return (
 		<>
-			<TheStepper categories={categories} selectedCategory={categoryId} />
-			<div>
-				<fieldset>
-					<legend>{category.name}</legend>
-					{category.parts.map((part) => (
-						<TheRadio
-							key={part.id}
-							label={part.name}
-							name={category.name}
-							value={part.id}
-							onChange={partInput.onChange}
-							checked={selectedPart.name === part.name ? true : false}
-						/>
-					))}
-				</fieldset>
-				<FormCategoryTotalPrice />
-				<FormCategoryPreviousCategory
-					category={category}
-					categories={categories}
-					categoryId={categoryId}
-				/>
-
-				{lastCategory && (
-					<>
-						{!fullfilledForm && (
-							<p>Proszę zaznaczyć jedną z opcji z każdej kategorii</p>
-						)}
-						<TheButton
-							type="submit"
-							onClick={NEXT_STEP}
-							btnLabel="ZAPISZ"
-							disabled={categories.length !== localStorage.length - 1}
-						/>
-					</>
-				)}
-
-				<FormCategoryNextCategory
-					category={category}
-					categories={categories}
-					categoryId={categoryId}
-				/>
-			</div>
+			{wrongPlace ? (
+				<WrongPlace />
+			) : (
+				<div className="lg:fixed top-0 left-0 right-0 bottom-0 lg:bg-theme-translucent-color pb-[50px] overflow-y-auto z-[100]">
+					<div className="flex lg:flex-row-reverse rounded-md justify-center lg:w-[800px] lg:min-h-[500px] bg-theme-dark-color text-theme-lightblue-color border-theme-error-color mx-auto mt-14">
+						<TheStepper categories={categories} selectedCategory={categoryId} />
+						<div className="lg:w-[80%] w-[60%] flex flex-col lg:text-[22px] text-[18px]">
+							<div className="shadow-additionalColorkBorder bg-theme-lightblue-color text-theme-dark-color rounded-lg p-[20px]">
+								<legend className="pb-3">{category.name}</legend>
+								<div className="flex flex-col min-h-[250px]">
+									{category.parts.map((part) => (
+										<TheRadio
+											key={part.id}
+											label={part.name}
+											name={category.name}
+											value={part.id}
+											onChange={partInput.onChange}
+											checked={selectedPart.name === part.name ? true : false}
+										/>
+									))}
+								</div>
+								<FormCategoryTotalPrice />
+							</div>
+							<div className="p-2 flex justify-between ">
+								<FormCategoryPreviousCategory
+									category={category}
+									categories={categories}
+									categoryId={categoryId}
+								/>
+								{isStarted && (
+									<div className="hidden lg:inline-block">
+										<TheButton btnLabel={"Stop"} onClick={HANDLE_STOP} />
+									</div>
+								)}
+								<FormCategoryNextCategory
+									category={category}
+									categories={categories}
+									categoryId={categoryId}
+								/>
+							</div>
+							{lastCategory && (
+								<>
+									{!fullfilledForm && (
+										<p className="text-center text-theme-error-color p-3">
+											Proszę zaznaczyć jedną z opcji z każdej kategorii.
+										</p>
+									)}
+									<TheButton
+										type="submit"
+										onClick={NEXT_STEP}
+										btnLabel="Zapisz"
+										disabled={categories.length !== localStorage.length - 1}
+									/>
+								</>
+							)}
+						</div>
+					</div>
+				</div>
+			)}
 		</>
 	);
 };

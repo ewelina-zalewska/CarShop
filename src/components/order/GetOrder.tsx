@@ -64,7 +64,7 @@ export const GetOrder = () => {
 				<form
 					ref={formRef}
 					onSubmit={HANDLE_SUBMIT}
-					className={`formStyled h-[150px]`}
+					className={`formStyled h-[170px]`}
 				>
 					<TheInput
 						label="Twój numer zamówienia:"

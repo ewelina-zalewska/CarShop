@@ -1,10 +1,13 @@
 ﻿import { useEffect, useState } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { Outlet, useNavigate } from "@tanstack/react-router";
+import { Outlet } from "@tanstack/react-router";
 import { categoriesQueryOptions } from "@/queries/categoriesQuery";
 import { CategoryResponse } from "@/types";
 import { useGetStarted } from "@/hooks/useGetStarted";
 import { TheButton } from "@/Shared/TheButton";
+import { MainCollapsibleAccordion } from "@/Shared/MainCollapsibleAccordion";
+import { MenuCollapsibleAccordion } from "@/Shared/MenuCollapsibleAccordion";
+import { LinkToPage } from "@/Shared/LinkToPage";
 
 export const CreatorHomePage = () => {
 	const { data: categories } = useSuspenseQuery(categoriesQueryOptions);
@@ -17,37 +20,35 @@ export const CreatorHomePage = () => {
 		setFirstCategory(category);
 	}, [categories]);
 
-	const navigate = useNavigate();
 	if (!firstCategory) return <p> No form ... </p>;
-
-	const GO_TO_FORM = () => {
-		if (form.isStarted) {
-			navigate({ to: `/` });
-			localStorage.setItem("form", "closed");
-			form.setForm("closed");
-			return;
-		}
-		navigate({ to: `/creator/${firstCategory.id}` });
-		localStorage.setItem("form", "started");
-		form.setForm("started");
-	};
-
-	const GO_TO_HOME = () => navigate({ to: `/` });
-
 	return (
 		<>
-			{form.isClosed && (
-				<div>
-					<h1>Kreator auta</h1>
-					<p>Przejdź do formularza klikając na start</p>
-				</div>
-			)}
-			<TheButton
-				btnLabel={form.isStarted ? "DO STRONY GŁÓWNEJ" : "START"}
-				onClick={GO_TO_FORM}
-			/>
-			{form.isClosed && <TheButton btnLabel="POWRÓT" onClick={GO_TO_HOME} />}
-			<Outlet />
+			<MenuCollapsibleAccordion title="Car Shop">
+				{form.isClosed && <LinkToPage title="Do strony głównej" link="/" />}
+				{form.isStarted && (
+					<>
+						<h3 className="mb-3 text-[22px]">Kreator auta</h3>
+						<div className="lg:hidden ">
+							<TheButton btnLabel={"Stop"} onClick={form.HANDLE_STOP} />
+						</div>
+					</>
+				)}
+			</MenuCollapsibleAccordion>
+			<MainCollapsibleAccordion>
+				{form.isClosed && (
+					<div className="formStyled h-[150px]">
+						<h1 className="text-[30px] ">Kreator auta</h1>
+						<p className="text-[20px]">
+							Przejdź do formularza klikając na start
+						</p>
+						<TheButton
+							btnLabel={"Start"}
+							onClick={() => form.HANDLE_START(firstCategory.id)}
+						/>
+					</div>
+				)}
+				<Outlet />
+			</MainCollapsibleAccordion>
 		</>
 	);
 };

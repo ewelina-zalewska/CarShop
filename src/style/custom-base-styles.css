@@ -4,7 +4,7 @@
 }
 
 #root {
-	@apply lg:relative lg:bg-background lg:bg-left-top bg-theme-dark-color font-sans h-screen bg-no-repeat bg-cover max-w-[1300px] overflow-hidden my-0 mx-auto shadow-blurredBorder min-h-screen overflow-y-auto;
+	@apply lg:relative lg:bg-background lg:bg-left-top bg-theme-dark-color font-sans bg-no-repeat bg-cover max-w-[1300px] my-0 mx-auto shadow-blurredBorder min-h-screen h-auto;
 	--body-color: #001b4a;
 	--light-color: #edece8;
 	--lightblue-color: #ccebe6;
@@ -13,27 +13,13 @@
 	--translucent-color: rgba(0, 27, 74, 0.8);
 	--additional-color: #6681b0;
 	--pink-color: #d1a2a3;
-	--light-gray-color: #cbcbcb;
+	--dark-pink-color: #cd5c5c;
+	--light-gray-color: #79828d;
 	--dark-gray-color: #2c2c2c;
 	--error-color: #e21e13;
 	--background: url("@/assets/images/background.webp");
 	--left-arrow-bg: url("@/assets/images/left_arrow.png");
 	--right-arrow-bg: url("@/assets/images/right_arrow.png");
-}
 
-li {
-	@apply mb-[10px];
-}
-li:hover {
-	@apply font-bold;
-}
-
-.disabledElement {
-	background-color: var(--light-gray-color);
-	color: var(--dark-gray-color);
-	box-shadow: 0 0 1.5px 1.5px var(--dark-gray-color);
-}
-
-.formStyled {
-	@apply mt-[50px] lg:ml-[25%] lg:mt-[8%]  lg:w-[350px] flex flex-col justify-between items-center text-theme-light-color text-[20px];
+	--radio-size: 9px;
 }

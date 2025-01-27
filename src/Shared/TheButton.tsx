@@ -29,7 +29,7 @@ export const TheButton = ({
 			type={type}
 			disabled={disabled}
 			onClick={onClick}
-			className={`py-2 px-2 rounded-xl hover:font-bold ${backgroundColor} ${textColor} ${shadowColor}`}
+			className={`py-2 px-4 rounded-xl hover:font-bold ${backgroundColor} ${textColor} ${shadowColor}`}
 		>
 			{btnLabel}
 		</button>

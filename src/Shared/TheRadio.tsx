@@ -17,7 +17,9 @@ export const TheRadio = ({
 }: TheRadioProps) => {
 	return (
 		<>
-			<label>
+			<label
+				className={`p-2 mt-1 border border-theme-dark-color rounded-md ${checked ? "font-bold" : "font-normal"} `}
+			>
 				<input
 					type="radio"
 					name={name}

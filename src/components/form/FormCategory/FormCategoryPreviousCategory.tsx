@@ -1,6 +1,6 @@
-﻿import { Link } from "@tanstack/react-router";
-import { CategoryResponse, useChangeCategoryProps } from "@/types";
+﻿import { CategoryResponse, useChangeCategoryProps } from "@/types";
 import { useEffect, useState } from "react";
+import { FormLink } from "@/Shared/FormLink";
 
 export const FormCategoryPreviousCategory = ({
 	category,
@@ -20,14 +20,10 @@ export const FormCategoryPreviousCategory = ({
 	return (
 		<>
 			{category.position !== 1 && (
-				<Link
-					to="/creator/$categoryId"
-					params={{
-						categoryId: previousCategory ? previousCategory.id : categoryId,
-					}}
-				>
-					COFNIJ
-				</Link>
+				<FormLink
+					title="Cofnij"
+					link={`/creator/${previousCategory ? previousCategory.id : categoryId}`}
+				/>
 			)}
 		</>
 	);
