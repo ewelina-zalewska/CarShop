@@ -1,0 +1,184 @@
+{
+	"orders": [],
+	"categories": [
+		{
+			"id": "35546",
+			"name": "Typ nadwozia",
+			"identifier": "body-type",
+			"position": 1
+		},
+		{
+			"id": "45654",
+			"name": "Kolor nadwozia",
+			"identifier": "body-color",
+			"position": 2
+		},
+		{
+			"id": "53466",
+			"name": "Skrzynia biegów",
+			"identifier": "gearbox",
+			"position": 3
+		},
+		{
+			"id": "75675",
+			"name": "Rodzaj paliwa",
+			"identifier": "type=of-fuel",
+			"position": 4
+		},
+		{
+			"id": "85326",
+			"name": "Napęd",
+			"identifier": "drive",
+			"position": 5
+		}
+	],
+	"parts": [
+		{
+			"id": "68547",
+			"name": "SUV",
+			"price": 60000,
+			"partId": "suv",
+			"categoryId": "35546"
+		},
+		{
+			"id": "84482",
+			"name": "Kombi",
+			"price": 50000,
+			"partId": "kombi",
+			"categoryId": "35546"
+		},
+		{
+			"id": "15606",
+			"name": "Terenowy",
+			"price": 70000,
+			"partId": "off-road-car",
+			"categoryId": "35546"
+		},
+		{
+			"id": "75546",
+			"name": "Kabriolet",
+			"price": 100000,
+			"partId": "cabriolet",
+			"categoryId": "35546"
+		},
+		{
+			"id": "04347",
+			"name": "Metaliczny",
+			"price": 10000,
+			"partId": "metallic",
+			"categoryId": "45654"
+		},
+		{
+			"id": "79432",
+			"name": "Czarny",
+			"price": 7000,
+			"partId": "black",
+			"categoryId": "45654"
+		},
+		{
+			"id": "b13e",
+			"name": "Biały",
+			"price": 5000,
+			"partId": "white",
+			"categoryId": "45654"
+		},
+		{
+			"id": "99774",
+			"name": "Czerwony",
+			"price": 9000,
+			"partId": "red",
+			"categoryId": "45654"
+		},
+		{
+			"id": "3f2f",
+			"name": "Różowy",
+			"price": 8000,
+			"partId": "pink",
+			"categoryId": "45654"
+		},
+		{
+			"id": "4026",
+			"name": "Niebieski",
+			"price": 7000,
+			"partId": "blue",
+			"categoryId": "45654"
+		},
+		{
+			"id": "22fe",
+			"name": "Inny",
+			"price": 6000,
+			"partId": "different-color",
+			"categoryId": "45654"
+		},
+		{
+			"id": "90373",
+			"name": "Manualna",
+			"price": 4000,
+			"partId": "manual",
+			"categoryId": "53466"
+		},
+		{
+			"id": "58946",
+			"name": "Półautomatyczna",
+			"price": 6000,
+			"partId": "semi-automatic",
+			"categoryId": "53466"
+		},
+		{
+			"id": "06166",
+			"name": "Automatyczna",
+			"price": 8000,
+			"partId": "automatic",
+			"categoryId": "53466"
+		},
+		{
+			"id": "29781",
+			"name": "Benzyna",
+			"price": 4000,
+			"partId": "petrol",
+			"categoryId": "75675"
+		},
+		{
+			"id": "63896",
+			"name": "Diesel",
+			"price": 6000,
+			"partId": "diesel",
+			"categoryId": "75675"
+		},
+		{
+			"id": "67941",
+			"name": "Hybryda",
+			"price": 10000,
+			"partId": "hybrid",
+			"categoryId": "75675"
+		},
+		{
+			"id": "2981",
+			"name": "Elektryczny",
+			"price": 12000,
+			"partId": "electric",
+			"categoryId": "75675"
+		},
+		{
+			"id": "73220",
+			"name": "Napęd na przednie koła",
+			"price": 7000,
+			"partId": "front-wheel-drive",
+			"categoryId": "85326"
+		},
+		{
+			"id": "57578",
+			"name": "Napęd na tylne koła",
+			"price": 8000,
+			"partId": "rear-drive",
+			"categoryId": "85326"
+		},
+		{
+			"id": "64378",
+			"name": "Napęd 4x4",
+			"price": 10000,
+			"partId": "4x4-drive",
+			"categoryId": "85326"
+		}
+	]
+}
